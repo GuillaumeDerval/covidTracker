@@ -28,31 +28,31 @@
             </select>
         </p>
         <p>
-            <label for="status">How likely is it that you suffer(ed) from COVID-19 ?</label>
+            <label for="status">How likely is it that you suffer(ed) from COVID-19?</label>
         </p>
         <ul>
             <li>
-                <input type="radio" name="status" id="status_covid" value="covid"/>
+                <input type="radio" name="status" id="status_covid_1" value="covid"/>
                 <label for="status_covid">Extremely unlikely</label>
             </li>
             <li>
-                <input type="radio" name="status" id="status_covid" value="covid"/>
+                <input type="radio" name="status" id="status_covid_2" value="covid"/>
                 <label for="status_covid">Unlikely</label>
             </li>
             <li>
-                <input type="radio" name="status" id="status_covid" value="covid"/>
+                <input type="radio" name="status" id="status_covid_3" value="covid"/>
                 <label for="status_covid">Neutral</label>
             </li>
             <li>
-                <input type="radio" name="status" id="status_covid" value="covid"/>
+                <input type="radio" name="status" id="status_covid_4" value="covid"/>
                 <label for="status_covid">Likely</label>
             </li>
             <li>
-                <input type="radio" name="status" id="status_covid" value="covid"/>
+                <input type="radio" name="status" id="status_covid_5" value="covid"/>
                 <label for="status_covid">Certain (confirmed by medical test)</label>
             </li>
         </ul>
-        <label for="timing">When where you sick ? (todo, hide if no)</label>
+        <label for="timing">When where you sick? (todo, hide if no)</label>
         </p>
         <ul>
             <li>
@@ -64,7 +64,7 @@
                 <input type="date" name="timing" id="timing_covid_to" value="covid"/>
             </li>
         </ul>
-        <label for="symptoms">Which symptoms did you experience ?</label>
+        <label for="symptoms">Which symptoms did you experience?</label>
         </p>
         <ul>
             <li>
@@ -76,6 +76,6 @@
                 <label for="symptoms_covid">Fever</label> <!-- TODO: finish the list -->
             </li>
         </ul>
-        <button type="submit">Click here to continue</button>
+        <button type="button" onclick="window.location.href='social-distancing-form'">Click here to continue</button><button type="submit">Click here to finish</button>
     </form>
 {% endblock %}

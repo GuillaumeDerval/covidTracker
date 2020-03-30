@@ -70,6 +70,13 @@ def form():
         return redirect("/index-error", 302)
     return render_template('form.html', password=password)
 
+@app.route("/social-distancing-form")
+def social_distancing_form():
+    password = request.cookies.get("cur_pass")
+    if password is None:
+        return redirect("/index-error", 302)
+    return render_template('form_distancing.html', password=password)
+
     # let's do this at the end of the form instead.
     # passwords = request.cookies.get('passwords')
     # if passwords is not None:
