@@ -1,6 +1,19 @@
+# Install requirements
+
+```
+pip install -r requirements.txt
+```
+
+# Start app
+
+```
+flask run
+````
+
 # Updating translations
 
 First update the .mo's
+
 ```
 pybabel extract -F babel.cfg -k _l -o messages.pot .
 pybabel update -i messages.pot -d covidbelgium/translations
