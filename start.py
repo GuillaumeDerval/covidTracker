@@ -1,0 +1,1 @@
+from covidbelgium import app
