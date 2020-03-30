@@ -1,6 +1,6 @@
 import re
 
-FILE = 'en.txt'
+FILE = 'nl.txt'
 words = open(FILE).read().split("\n")
 
 replace = {
@@ -23,7 +23,7 @@ def fix_word(w: str):
     return w.lower()
 
 def is_word_ok(w: str):
-    return re.match(r"[a-z0-9\-]+$", w) and len(w) > 3 and len(w) < 8
+    return re.match(r"[a-z0-9]+$", w) and len(w) > 3 and len(w) < 8
 
 words = [fix_word(w) for w in words]
 words = sorted(set([w for w in words if is_word_ok(w)]))

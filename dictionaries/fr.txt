@@ -1556,8 +1556,6 @@ cessez
 cession
 cette
 ceux
-ceux-ci
-ceux-la
 cezanne
 chacun
 chacune
@@ -2990,7 +2988,6 @@ emporte
 empote
 emprise
 emprunt
-en-tete
 encadre
 enclin
 enclins
@@ -4429,7 +4426,6 @@ hyper
 ibert
 iceberg
 iceux
-ici-bas
 icone
 ictere
 ideal
@@ -4819,7 +4815,6 @@ kurde
 kurdes
 kurt
 kyste
-la-bas
 label
 labeur
 labour
@@ -5531,7 +5526,6 @@ michele
 mickey
 micmac
 micro
-micro-
 microbe
 micros
 midi
@@ -5653,7 +5647,6 @@ mondial
 monique
 monnaie
 monnet
-mono-
 monome
 monory
 monstre
@@ -6052,7 +6045,6 @@ ombre
 ombres
 omettre
 omis
-on-dit
 once
 oncle
 onde

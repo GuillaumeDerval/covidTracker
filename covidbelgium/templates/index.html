@@ -3,9 +3,45 @@
         <title>{{ title }}</title>
     </head>
     <body>
-        <h1>UCLouvain's COVID-19 Tracker</h1>
-        {{ _("Welcome!") }}
-
-
+        <h1>{{ _("Welcome!") }}</h1>
+        {% if entries %}
+            <h2>You filled the following profiles in the past:</h2>
+            {% for password, profile in entries.items() %}
+                <div class="profile">
+                    <form action="/reuse-id" method="post">
+                        <input type="hidden" name="password" value="{{ password }}"/>
+                        <ul>
+                            <li>ID: {{ password }}</li>
+                            <li>Sex:
+                                {% if profile.sex == "male" %}
+                                    Male
+                                {% else %}
+                                    Female
+                                {% endif %}
+                            </li>
+                            <li>Age: {{ profile.age }} - {{ profile.age + 4 }}</li>
+                            <li>
+                                {% if profile.has_covid %}
+                                    Has Covid-19
+                                {% elif profile.had_covid %}
+                                    Had Covid-19
+                                {% endif %}
+                            </li>
+                            <li><button type="submit">Update this profile</button></li>
+                        </ul>
+                    </form>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="profile">
+            <a href="new-id">{{ _("I never filled the form") }}</a>
+        </div>
+        <div class="profile">
+            {% if entries %}
+                <a href="reuse-id">{{ _("I already filled the form, but my profile is not listed above") }}</a>
+            {% else %}
+                <a href="reuse-id">{{ _("I already filled the form") }}</a>
+            {% endif %}
+        </div>
     </body>
 </html>
