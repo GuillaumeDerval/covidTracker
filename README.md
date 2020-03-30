@@ -4,6 +4,12 @@
 pip install -r requirements.txt
 ```
 
+# Create database
+
+```
+python -c "from covidbelgium.database import init_db; init_db()"
+```
+
 # Start app
 
 ```
