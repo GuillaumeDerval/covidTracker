@@ -1,9 +1,12 @@
-<form action="/reuse-id" method="post">
-    {% if password %}
-        <p class="alert">Invalid password!</p>
-    {% endif %}
-    Please input your profile ID below to update your profile:
+{% extends "tpl.html" %}
+{% block content %}
+    <form action="/reuse-id" method="post">
+        {% if password %}
+            <p class="alert">Invalid password!</p>
+        {% endif %}
+        Please input your profile ID below to update your profile:
 
-    <input name="password" value="{{ password }}"/>
-    <button type="submit">Submit</button>
-</form>
+        <input name="password" value="{{ password }}"/>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

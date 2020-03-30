@@ -1,8 +1,36 @@
-<html>
-    <head>
-        <title>FORM.</title>
-    </head>
-    <body>
-        FORM. Password: {{ password }}
-    </body>
-</html>
+{% extends "tpl.html" %}
+{% block content %}
+    FORM. Password: {{ password }}
+    <form action="form" method="post">
+        <p>
+        <label for="sex">Sex</label>
+        </p>
+        <ul>
+            <li>
+                <input type="radio" name="sex" id="sex_male" value="male"/>
+                <label for="sex_male">Male</label>
+            </li>
+            <li>
+                <input type="radio" name="sex" id="sex_female" value="female"/>
+                <label for="sex_female">Female</label>
+            </li>
+        </ul>
+        <p>
+            <label for="age">Age:</label>
+            <select name="age" id="age">
+                {% for i in range(0, 125, 5) %}
+                    <option value="{{ i }}">{{ i }} - {{ i + 4 }} years</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
+            <label for="status">COVID-19 Status:</label>
+        </p>
+        <ul>
+            <li>
+                <input type="radio" name="status" id="sex_male" value="male"/>
+                <label for="sex_male">Male</label>
+            </li>
+        </ul>
+    </form>
+{% endblock %}
