@@ -1,0 +1,1 @@
+FLASK_APP=covidbelgium/__init__.py
