@@ -16,6 +16,7 @@ def get_locale():
 
 from covidbelgium import routes
 from covidbelgium.database import db_session
+from covidbelgium import belgium_map
 
 
 @app.teardown_appcontext
