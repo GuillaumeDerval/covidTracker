@@ -1,6 +1,10 @@
 {% extends "tpl.html" %}
 {% block content %}
-    FORM. Password: {{ password }}
+
+    <p class="is-size-4 subtitle">
+        Fill this form to contribute. <a href="#">Everything is strictly anonymous</a>, don't worry!
+    </p>
+
     <form action="form" method="post">
         <div class="field">
             <label for="sex" class="label">Sex</label>
@@ -92,6 +96,11 @@
                 </div>
             </div>
         </div>
-        <button type="submit">Click here to continue</button>
+        <div class="field">
+            <div class="buttons is-centered" style="margin-top: 3em">
+                <button type="submit" class="button is-primary is-large">Click here to continue</button>
+            </div>
+        </div>
+
     </form>
 {% endblock %}

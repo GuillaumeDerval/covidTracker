@@ -1,43 +1,63 @@
 {% extends "tpl.html" %}
-{% block content %}
-    <h1>{{ _("Welcome!") }}</h1>
-    {% if entries %}
-        <h2>You filled the following profiles in the past:</h2>
-        {% for password, profile in entries.items() %}
-            <div class="profile">
-                <form action="/reuse-id" method="post">
-                    <input type="hidden" name="password" value="{{ password }}"/>
-                    <ul>
-                        <li>ID: {{ password }}</li>
-                        <li>Sex:
-                            {% if profile.sex == "male" %}
-                                Male
-                            {% else %}
-                                Female
-                            {% endif %}
-                        </li>
-                        <li>Age: {{ profile.age }} - {{ profile.age + 4 }}</li>
-                        <li>
-                            {% if profile.has_covid %}
-                                Has Covid-19
-                            {% elif profile.had_covid %}
-                                Had Covid-19
-                            {% endif %}
-                        </li>
-                        <li><button type="submit">Update this profile</button></li>
-                    </ul>
-                </form>
+{% block abovecontent %}
+     <section class="hero is-fullheight-with-navbar  is-primary is-bold">
+        <div class="hero-body">
+            <div class="container has-text-centered ">
+                <h1 class="title is-size-1 ">
+                    Fight the virus with <span class="is-family-code">data</span>!
+                </h1>
+                {% if entries %}
+                    <h2 class="subtitle">Update your profile:</h2>
+                    <div class="columns">
+                        {% for password, profile in entries.items() %}
+                            <div class="column">
+                                <form action="/reuse-id" method="post">
+                                    <input type="hidden" name="password" value="{{ password }}"/>
+                                    <ul>
+                                        <li>ID: {{ password }}</li>
+                                        <li>Sex:
+                                            {% if profile.sex == "male" %}
+                                                Male
+                                            {% else %}
+                                                Female
+                                            {% endif %}
+                                        </li>
+                                        <li>Age: {{ profile.age }} - {{ profile.age + 4 }}</li>
+                                        <li>
+                                            {% if profile.has_covid %}
+                                                Has Covid-19
+                                            {% elif profile.had_covid %}
+                                                Had Covid-19
+                                            {% endif %}
+                                        </li>
+                                        <li>
+                                            <button type="submit">Update this profile</button>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="buttons is-centered">
+                <a href="new-id" class="button is-dark is-large is-centered">{{ _("I want to participate!") }}</a>
+                </div>
+                <div class="buttons is-centered">
+                    {% if entries %}
+                        <a href="reuse-id" class="button is-dark is-centered">{{ _("I already filled the form, but my profile is not listed above") }}</a>
+                    {% else %}
+                        <a href="reuse-id" class="button is-dark is-centered">{{ _("I already filled the form, let me update it!") }}</a>
+                    {% endif %}
+                </div>
             </div>
-        {% endfor %}
-    {% endif %}
-    <div class="profile">
-        <a href="new-id">{{ _("I never filled the form") }}</a>
-    </div>
-    <div class="profile">
-        {% if entries %}
-            <a href="reuse-id">{{ _("I already filled the form, but my profile is not listed above") }}</a>
-        {% else %}
-            <a href="reuse-id">{{ _("I already filled the form") }}</a>
-        {% endif %}
-    </div>
+        </div>
+        <div class="hero-foot">
+            <div class="container has-text-centered is-size-4">
+                <p>⬇️ More information below ⬇️️</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block content %}
+    Test
 {% endblock %}

@@ -52,7 +52,6 @@
             }
 
 
-
             .column .is-custom-checkradio-block + label {
                 margin: 0;
             }
@@ -67,25 +66,45 @@
         </style>
     </head>
     <body>
+        <nav class="navbar has-background-light">
+            <div class="container">
+                <div id="navMenu" class="navbar-menu">
+                    <div class="navbar-start">
+                        <a class="navbar-item is-size-4" href="/">
+                            Covidata<span class="has-text-weight-bold">.be</span>
+                        </a>
+                    </div>
+
+                    <div class="navbar-end">
+                        <div class="navbar-item">
+                            <div class="buttons">
+                                <a class="button is-dark">Get the data</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        {% block abovecontent %}
+        {% endblock %}
         <section class="section">
             <div class="container">
-                <h1 class="title">
-                    Hello World
-                </h1>
-
-                {% block header %}
-                    <div>HEADER</div>
-                {% endblock %}
                 {% block content %}
-                    <div>CONTENT</div>
+                    <div>main content</div>
                 {% endblock %}
-                {% block footer %}
-                    <div>FOOTER</div>
-                {% endblock %}
-                <p class="subtitle">
-                    My first website with <strong>Bulma</strong>!
-                </p>
             </div>
         </section>
+        <footer class="footer">
+            <div class="content has-text-centered">
+                <p>
+                    Covidata<span class="has-text-weight-bold">.be</span> is an open-source project by the INGI department @UCLouvain.
+                </p>
+                <div class="buttons is-centered">
+                    <a href="mailto:covidata@uclouvain.be" class="button is-link is-outlined">Contact</a>
+                    <a href="/data" class="button is-primary is-outlined">Get the data</a>
+                    <a href="http://www.github.com/UCL-INGI" class="button is-link is-outlined">Open source</a>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

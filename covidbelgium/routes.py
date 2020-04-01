@@ -27,7 +27,7 @@ def add_password_to_list(response: Response, password: str):
 @app.route('/')
 @app.route('/index')
 def index(error=False):
-    a = Answers("b67d51c9e670a678ce0e4c1d973d1b05400e174d3207d8ae4e37db9109300bba", LikelyScale.certain, Sex.male, 5, datetime.datetime.utcnow(), datetime.datetime.utcnow())
+    a = Answers("b67d51c9e670a678ce0e4c1d973d1b05400e174d3207d8ae4e37db9109300bba", LikelyScale.certain, Sex.male, 5, datetime.utcnow(), datetime.utcnow())
     db_session.add(a)
     db_session.commit()
     passwords = get_password_list()
