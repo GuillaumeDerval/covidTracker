@@ -3,20 +3,16 @@
     FORM. Password: {{ password }}
     <form action="form" method="post">
         <p>
-        <label for="gender">Gender</label>
+        <label for="sex">Sex</label>
         </p>
         <ul>
             <li>
-                <input type="radio" name="gender" id="gender_male" value="male"/>
-                <label for="gender_male">Male</label>
+                <input type="radio" name="sex" id="sex_male" value="male"/>
+                <label for="sex_male">Male</label>
             </li>
             <li>
-                <input type="radio" name="gender" id="gender_female" value="female"/>
-                <label for="gender_female">Female</label>
-            </li>
-            <li>
-                <input type="radio" name="gender" id="gender_other" value="other"/>
-                <label for="gender_other">Other</label>
+                <input type="radio" name="sex" id="sex_female" value="female"/>
+                <label for="sex_female">Female</label>
             </li>
         </ul>
         <p>
@@ -32,24 +28,24 @@
         </p>
         <ul>
             <li>
-                <input type="radio" name="status" id="status_covid_1" value="covid"/>
-                <label for="status_covid">Extremely unlikely</label>
+                <input type="radio" name="status" id="status_covid_1" value="extremely_unlikely"/>
+                <label for="status">Extremely unlikely</label>
             </li>
             <li>
-                <input type="radio" name="status" id="status_covid_2" value="covid"/>
-                <label for="status_covid">Unlikely</label>
+                <input type="radio" name="status" id="status_covid_2" value="unlikely"/>
+                <label for="status">Unlikely</label>
             </li>
             <li>
-                <input type="radio" name="status" id="status_covid_3" value="covid"/>
-                <label for="status_covid">Neutral</label>
+                <input type="radio" name="status" id="status_covid_3" value="neutral"/>
+                <label for="status">Neutral</label>
             </li>
             <li>
-                <input type="radio" name="status" id="status_covid_4" value="covid"/>
-                <label for="status_covid">Likely</label>
+                <input type="radio" name="status" id="status_covid_4" value="likely"/>
+                <label for="status">Likely</label>
             </li>
             <li>
-                <input type="radio" name="status" id="status_covid_5" value="covid"/>
-                <label for="status_covid">Certain (confirmed by medical test)</label>
+                <input type="radio" name="status" id="status_covid_5" value="certain"/>
+                <label for="status">Certain (confirmed by medical test)</label>
             </li>
         </ul>
         <label for="timing">When where you sick? (todo, hide if no)</label>
@@ -57,11 +53,11 @@
         <ul>
             <li>
                 <label for="timing_covid">From</label>
-                <input type="date" name="timing" id="timing_covid_from" value="covid"/>
+                <input type="date" name="timing_from" id="timing_covid_from" value="covid"/>
             </li>
             <li>
                 <label for="timing_covid">To</label>
-                <input type="date" name="timing" id="timing_covid_to" value="covid"/>
+                <input type="date" name="timing_to" id="timing_covid_to" value="covid"/>
             </li>
         </ul>
         <label for="symptoms">Which symptoms did you experience?</label>
@@ -76,6 +72,6 @@
                 <label for="symptoms_covid">Fever</label> <!-- TODO: finish the list -->
             </li>
         </ul>
-        <button type="button" onclick="window.location.href='social-distancing-form'">Click here to continue</button><button type="submit">Click here to finish</button>
+        <button type="submit">Click here to continue</button>
     </form>
 {% endblock %}

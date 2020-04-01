@@ -2,7 +2,7 @@ from flask import render_template, send_from_directory, request, redirect, Respo
 
 from covidbelgium import app, get_locale
 from covidbelgium.database import db_session
-from covidbelgium.models import Answers, Sex
+from covidbelgium.models import Answers, Sex, LikelyScale
 import datetime
 
 from covidbelgium.passwords import gen_password, hash_password, check_password
@@ -27,7 +27,7 @@ def add_password_to_list(response: Response, password: str):
 @app.route('/')
 @app.route('/index')
 def index(error=False):
-    a = Answers("b67d51c9e670a678ce0e4c1d973d1b05400e174d3207d8ae4e37db9109300bba", True, False, Sex.male, 5, datetime.datetime.utcnow(), datetime.datetime.utcnow())
+    a = Answers("b67d51c9e670a678ce0e4c1d973d1b05400e174d3207d8ae4e37db9109300bba", LikelyScale.certain, Sex.male, 5, datetime.datetime.utcnow(), datetime.datetime.utcnow())
     db_session.add(a)
     db_session.commit()
     passwords = get_password_list()
@@ -63,12 +63,27 @@ def reuse_id():
         return render_template('reuse-id.html', password=password)
 
 
-@app.route("/form")
+@app.route("/form", methods=["GET", "POST"])
 def form():
     password = request.cookies.get("cur_pass")
     if password is None:
         return redirect("/index-error", 302)
-    return render_template('form.html', password=password)
+    if request.method == "GET": #Serve the form
+        return render_template('form.html', password=password)
+    else: #Save in db and serve next form
+        print(request.values)
+        sex = Sex[request.values.get('sex')]
+        age = int(request.values.get('age'))
+        covid_likely = LikelyScale[request.values.get('status')]
+        if covid_likely == LikelyScale.likely or covid_likely == LikelyScale.certain:
+            covid_start = request.values.get("timing_from")
+            covid_end = request.values.get("timing_to")
+            answer = Answers(hash_password(password), covid_likely, sex, age, covid_start, covid_end)
+        else:
+            answer = Answers(hash_password(password), covid_likely, sex, age)
+        db_session.add(answer)
+        db_session.commit()
+        return render_template('form_distancing.html', password=password)
 
 @app.route("/social-distancing-form")
 def social_distancing_form():
