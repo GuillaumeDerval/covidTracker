@@ -2,88 +2,96 @@
 {% block content %}
     FORM. Password: {{ password }}
     <form action="form" method="post">
-        <p>
-        <label for="sex">Sex</label>
-        </p>
-        <ul>
-            <li>
-                <input type="radio" name="sex" id="sex_male" value="male"/>
-                <label for="sex_male">Male</label>
-            </li>
-            <li>
-                <input type="radio" name="sex" id="sex_female" value="female"/>
-                <label for="sex_female">Female</label>
-            </li>
-        </ul>
-        <p>
-            <label for="age">Age:</label>
-            <select name="age" id="age">
-                {% for i in range(0, 125, 5) %}
-                    <option value="{{ i }}">{{ i }} - {{ i + 4 }} years</option>
-                {% endfor %}
-            </select>
-        </p>
-        <p>
-            <label for="status">How likely is it that you suffer(ed) from COVID-19?</label>
-        </p>
-        <ul>
-            <li>
-                <input type="radio" name="status" id="status_covid_1" value="extremely_unlikely"/>
-                <label for="status">Extremely unlikely</label>
-            </li>
-            <li>
-                <input type="radio" name="status" id="status_covid_2" value="unlikely"/>
-                <label for="status">Unlikely</label>
-            </li>
-            <li>
-                <input type="radio" name="status" id="status_covid_3" value="neutral"/>
-                <label for="status">Neutral</label>
-            </li>
-            <li>
-                <input type="radio" name="status" id="status_covid_4" value="likely"/>
-                <label for="status">Likely</label>
-            </li>
-            <li>
-                <input type="radio" name="status" id="status_covid_5" value="certain"/>
-                <label for="status">Certain (confirmed by medical test)</label>
-            </li>
-        </ul>
-        <label for="timing">When where you sick? (todo, hide if no)</label>
-        </p>
-        <ul>
-            <li>
-                <label for="timing_covid">From</label>
-                <input type="date" name="timing_from" id="timing_covid_from" value=""/>
-            </li>
-            <li>
-                <label for="timing_covid">To</label>
-                <input type="date" name="timing_to" id="timing_covid_to" value=""/>
-            </li>
-        </ul>
-        <label>Which symptoms did you experience?</label>
-        </p>
-        <ul>
-            <li>
-                <input type="checkbox" name="symptoms_cough" id="symptoms_covid_caugh" value="cough"/>
-                <label for="symptoms_covid">Dry Cough</label>
-            </li>
-            <li>
-                <input type="checkbox" name="symptoms_fever" id="symptoms_covid_fever" value="fever"/>
-                <label for="symptoms_covid">Fever</label>
-            </li>
-            <li>
-                <input type="checkbox" name="symptoms_smell" id="symptoms_covid_smell" value="smell"/>
-                <label for="symptoms_covid">Sudden loss of smell</label>
-            </li>
-            <li>
-                <input type="checkbox" name="symptoms_breathing" id="symptoms_covid_breathing" value="breathing"/>
-                <label for="symptoms_covid">Breathing difficulties</label>
-            </li>
-            <li>
-                <input type="checkbox" name="symptoms_tiredness" id="symptoms_covid_tiredness" value="tiredness"/>
-                <label for="symptoms_covid">Tiredness</label> <!-- TODO: finish the list -->
-            </li>
-        </ul>
+        <div class="field">
+            <label for="sex" class="label">Sex</label>
+            <div class="control">
+                <div class="columns">
+                    <div class="column">
+
+                        <input class="is-checkradio is-block is-custom-checkradio-block" id="sex_male" type="radio"
+                               name="sex" value="male" required>
+                        <label for="sex_male">Male</label>
+                    </div>
+                    <div class="column">
+                        <input class="is-checkradio is-block is-custom-checkradio-block" id="sex_female" type="radio"
+                               name="sex" value="female" required>
+                        <label for="sex_female">Female</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label for="age" class="label">Age</label>
+            <div class="control">
+                <div class="select is-primary">
+                    <select name="age" id="age" required>
+                        <option value="">{{ _("Select your age") }}</option>
+                        {% for i in range(0, 125, 5) %}
+                            <option value="{{ i }}">{{ i }} - {{ i + 4 }} years</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label for="status" class="label">How likely is it that you suffer(ed) from COVID-19?</label>
+            {% set statuses = [('extremely_unlikely', _('Extremely unlikely')),
+                                 ('unlikely', _("Unlikely")),
+                                 ('neutral', _("Maybe (I had or still have some symptoms)")),
+                                 ('likely', _("Likely (I had or still have most symptoms)")),
+                                 ('certain', _("Certain (confirmed by medical test)"))] %}
+            <div class="control">
+                <div class="columns">
+                    {% for value, name in statuses %}
+                        <div class="column">
+                            <input class="is-checkradio is-block is-custom-checkradio-block"
+                                   id="status_covid_{{ value }}" type="radio"
+                                   name="status" value="{{ value }}" required>
+                            <label for="status_covid_{{ value }}">{{ name }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label for="timing" class="label">When were you sick?</label>
+            <div class="columns">
+                <div class="column">
+                    <label for="timing_covid" class="label">From</label>
+                    <div class="control">
+                        <input type="date" class="input is-primary" name="timing_from" id="timing_covid_from" value=""/>
+                    </div>
+                    <p class="help">Put the date where your first symptom appeared</p>
+                </div>
+                <div class="column">
+                    <label for="timing_covid" class="label">To</label>
+                    <div class="control">
+                        <input type="date" class="input is-primary" name="timing_to" id="timing_covid_to" value=""/>
+                    </div>
+                    <p class="help">If you are still ill, please put any date in the future</p>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label for="symptoms" class="label">Which symptoms did you experience?</label>
+            <div class="control">
+                <div class="columns">
+                    {% set symptoms = [('caugh', _('Dry Cough')),
+                                 ('fever', _("Fever")),
+                                 ('smell', _("Sudden loss of smell")),
+                                 ('breathing', _("Breathing difficulties")),
+                                 ('tiredness', _("Tiredness"))] %} {# TODO: finish the list #}
+                    {% for value, name in symptoms %}
+                        <div class="column">
+                            <input class="is-checkradio is-block is-custom-checkradio-block"
+                                   id="symptoms_{{ value }}" type="checkbox"
+                                   name="symptoms_{{ value }}">
+                            <label for="symptoms_{{ value }}">{{ name }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
         <button type="submit">Click here to continue</button>
     </form>
 {% endblock %}

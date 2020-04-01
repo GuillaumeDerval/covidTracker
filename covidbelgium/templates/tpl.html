@@ -1,26 +1,91 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <title>{{ title }}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Covid19-form</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bulma.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bulma-checkradio.min.css') }}">
+        <style type="text/css">
+            .is-custom-checkradio-block.is-checkradio + label {
+                display: block;
+                /*background: #f5f5f5;*/
+                padding: 10px 2.3em;
+            }
 
-        <!-- Latest compiled and minified CSS -->
+            .is-custom-checkradio-block.is-checkradio + label::before {
+                margin-top: 10px;
+                margin-left: 0.3em;
+            }
 
-        <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+            .is-custom-checkradio-block.is-checkradio + label::after {
+                margin-top: 10px;
+                margin-left: 0.3em;
+            }
 
-        <link href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet">
+            /*.is-checkradio[type="radio"] + label:hover {
+                background: #f0f0f0;
+            }*/
 
-        <link href="{{ url_for('static', filename='js/bootstrap.js') }}" rel="stylesheet">
+            .is-custom-checkradio-block.is-checkradio[type="radio"]:checked + label,
+            .is-custom-checkradio-block.is-checkradio[type="checkbox"]:checked + label {
+                background: #00d1b2;
+            }
+
+            .is-custom-checkradio-block.is-checkradio[type="radio"]:checked + label:hover,
+            .is-custom-checkradio-block.is-checkradio[type="checkbox"]:checked + label:hover {
+                background: #00d7b8;
+            }
+
+            .is-custom-checkradio-block.is-checkradio[type="radio"]:checked + label:hover::before,
+            .is-custom-checkradio-block.is-checkradio[type="checkbox"]:checked + label:hover::before {
+                border: .1rem solid #dbdbdb !important;
+            }
+
+            .is-custom-checkradio-block.is-checkradio[type="radio"]:checked + label::after {
+                background: #f5f5f5 !important;
+            }
+
+            .is-custom-checkradio-block.is-checkradio[type="checkbox"]:checked + label::after {
+                border-color: #f5f5f5 !important;
+                border-width: 2px;
+            }
 
 
+
+            .column .is-custom-checkradio-block + label {
+                margin: 0;
+            }
+
+            .column {
+                padding: .5rem .75rem;
+            }
+
+            .is-checkradio[type="checkbox"].is-block.is-custom-checkradio-block, .is-checkradio[type="radio"].is-block.is-custom-checkradio-block {
+                display: inline-block !important;
+            }
+        </style>
     </head>
     <body>
-        {% block header %}
-            <div>HEADER</div>
-        {% endblock %}
-        {% block content %}
-            <div>CONTENT</div>
-        {% endblock %}
-        {% block footer %}
-            <div>FOOTER</div>
-        {% endblock %}
+        <section class="section">
+            <div class="container">
+                <h1 class="title">
+                    Hello World
+                </h1>
+
+                {% block header %}
+                    <div>HEADER</div>
+                {% endblock %}
+                {% block content %}
+                    <div>CONTENT</div>
+                {% endblock %}
+                {% block footer %}
+                    <div>FOOTER</div>
+                {% endblock %}
+                <p class="subtitle">
+                    My first website with <strong>Bulma</strong>!
+                </p>
+            </div>
+        </section>
     </body>
 </html>
