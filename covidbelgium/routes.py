@@ -81,8 +81,8 @@ def form():
         symptom_tiredness = request.values.get('symptoms_tiredness')
         covid_likely = LikelyScale[request.values.get('status')]
         if covid_likely == LikelyScale.likely or covid_likely == LikelyScale.certain:
-            covid_start = datetime.strptime(request.values.get("timing_from"), '%Y-%m-%d')
-            covid_end = datetime.strptime(request.values.get("timing_to"), '%Y-%m-%d')
+            covid_start = datetime.strptime(request.values.get("timing_from"), '%d/%m/%Y')
+            covid_end = datetime.strptime(request.values.get("timing_to"), '%d/%m/%Y')
             answer = Answers(hash_password(password), covid_likely, sex, age, covid_start, covid_end,
                              symptom_cough!=None, symptom_fever!=None, symptom_smell!=None, symptom_breathing!=None,
                             symptom_tiredness!=None)
