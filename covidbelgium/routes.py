@@ -3,7 +3,7 @@ from flask import render_template, send_from_directory, request, redirect, Respo
 from covidbelgium import app, get_locale
 from covidbelgium.database import db_session
 from covidbelgium.models import Answers, Sex, LikelyScale
-import datetime
+from datetime import datetime
 
 from covidbelgium.passwords import gen_password, hash_password, check_password
 
@@ -74,11 +74,18 @@ def form():
         print(request.values)
         sex = Sex[request.values.get('sex')]
         age = int(request.values.get('age'))
+        symptom_cough = request.values.get('symptoms_cough')
+        symptom_fever = request.values.get('symptoms_fever')
+        symptom_smell = request.values.get('symptoms_smell')
+        symptom_breathing = request.values.get('symptoms_breathing')
+        symptom_tiredness = request.values.get('symptoms_tiredness')
         covid_likely = LikelyScale[request.values.get('status')]
         if covid_likely == LikelyScale.likely or covid_likely == LikelyScale.certain:
-            covid_start = request.values.get("timing_from")
-            covid_end = request.values.get("timing_to")
-            answer = Answers(hash_password(password), covid_likely, sex, age, covid_start, covid_end)
+            covid_start = datetime.strptime(request.values.get("timing_from"), '%Y-%m-%d')
+            covid_end = datetime.strptime(request.values.get("timing_to"), '%Y-%m-%d')
+            answer = Answers(hash_password(password), covid_likely, sex, age, covid_start, covid_end,
+                             symptom_cough!=None, symptom_fever!=None, symptom_smell!=None, symptom_breathing!=None,
+                            symptom_tiredness!=None)
         else:
             answer = Answers(hash_password(password), covid_likely, sex, age)
         db_session.add(answer)

@@ -53,23 +53,35 @@
         <ul>
             <li>
                 <label for="timing_covid">From</label>
-                <input type="date" name="timing_from" id="timing_covid_from" value="covid"/>
+                <input type="date" name="timing_from" id="timing_covid_from" value=""/>
             </li>
             <li>
                 <label for="timing_covid">To</label>
-                <input type="date" name="timing_to" id="timing_covid_to" value="covid"/>
+                <input type="date" name="timing_to" id="timing_covid_to" value=""/>
             </li>
         </ul>
-        <label for="symptoms">Which symptoms did you experience?</label>
+        <label>Which symptoms did you experience?</label>
         </p>
         <ul>
             <li>
-                <input type="checkbox" name="symptoms" id="symptoms_covid_caugh" value="cough"/>
-                <label for="symptoms_covid">Coughing</label>
+                <input type="checkbox" name="symptoms_cough" id="symptoms_covid_caugh" value="cough"/>
+                <label for="symptoms_covid">Dry Cough</label>
             </li>
             <li>
-                <input type="checkbox" name="symptoms" id="symptoms_covid_fever" value="fever"/>
-                <label for="symptoms_covid">Fever</label> <!-- TODO: finish the list -->
+                <input type="checkbox" name="symptoms_fever" id="symptoms_covid_fever" value="fever"/>
+                <label for="symptoms_covid">Fever</label>
+            </li>
+            <li>
+                <input type="checkbox" name="symptoms_smell" id="symptoms_covid_smell" value="smell"/>
+                <label for="symptoms_covid">Sudden loss of smell</label>
+            </li>
+            <li>
+                <input type="checkbox" name="symptoms_breathing" id="symptoms_covid_breathing" value="breathing"/>
+                <label for="symptoms_covid">Breathing difficulties</label>
+            </li>
+            <li>
+                <input type="checkbox" name="symptoms_tiredness" id="symptoms_covid_tiredness" value="tiredness"/>
+                <label for="symptoms_covid">Tiredness</label> <!-- TODO: finish the list -->
             </li>
         </ul>
         <button type="submit">Click here to continue</button>

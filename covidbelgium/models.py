@@ -31,7 +31,14 @@ class Answers(Base):
     sex = Column(Enum(Sex), nullable=False)
     age = Column(Integer, nullable=False)  # a multiple of 5
 
-    def __init__(self, hash, covid_likely, sex, age, covid_since=None, covid_until=None):
+    symptom_cough = Column(Boolean)
+    symptom_fever = Column(Boolean)
+    symptom_smell = Column(Boolean)
+    symptom_breathing = Column(Boolean)
+    symptom_tiredness = Column(Boolean)
+
+    def __init__(self, hash, covid_likely, sex, age, covid_since=None, covid_until=None, symptom_cough=None, symptom_fever=None,
+                 symptom_smell=None, symptom_breathing=None, symptom_tiredness=None):
         self.hash = hash
         self.covid_likely = covid_likely
         if self.covid_likely == LikelyScale.likely or self.covid_likely == LikelyScale.certain: #Dates if not neutral
@@ -42,6 +49,11 @@ class Answers(Base):
         assert age % 5 == 0
         self.sex = sex
         self.age = age
+        self.symptom_cough = symptom_cough
+        self.symptom_fever = symptom_fever
+        self.symptom_smell = symptom_smell
+        self.symptom_breathing = symptom_breathing
+        self.symptom_tiredness = symptom_tiredness
 
     @classmethod
     def find_last_by_hash(cls, hash):
