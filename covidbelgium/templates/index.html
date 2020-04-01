@@ -11,7 +11,7 @@
                     <div class="columns">
                         {% for password, profile in entries.items() %}
                             <div class="column">
-                                <form action="/reuse-id" method="post">
+                                <form action="{{ url_for('multilingual.reuse_id') }}" method="post">
                                     <input type="hidden" name="password" value="{{ password }}"/>
                                     <ul>
                                         <li>ID: {{ password }}</li>
@@ -40,13 +40,13 @@
                     </div>
                 {% endif %}
                 <div class="buttons is-centered">
-                <a href="new-id" class="button is-dark is-large is-centered">{{ _("I want to participate!") }}</a>
+                <a href="{{ url_for('multilingual.new_id') }}" class="button is-dark is-large is-centered">{{ _("I want to participate!") }}</a>
                 </div>
                 <div class="buttons is-centered">
                     {% if entries %}
-                        <a href="reuse-id" class="button is-dark is-centered">{{ _("I already filled the form, but my profile is not listed above") }}</a>
+                        <a href="{{ url_for('multilingual.reuse_id') }}" class="button is-dark is-centered">{{ _("I already filled the form, but my profile is not listed above") }}</a>
                     {% else %}
-                        <a href="reuse-id" class="button is-dark is-centered">{{ _("I already filled the form, let me update it!") }}</a>
+                        <a href="{{ url_for('multilingual.reuse_id') }}" class="button is-dark is-centered">{{ _("I already filled the form, let me update it!") }}</a>
                     {% endif %}
                 </div>
             </div>

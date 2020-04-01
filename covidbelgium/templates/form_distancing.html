@@ -1,7 +1,7 @@
 {% extends "tpl.html" %}
 {% block content %}
     FORM. Password: {{ password }}
-    <form action="form" method="post">
+    <form action="{{ url_for('multilingual.form') }}" method="post">
         <p>
             <label for="distancing">Did you find yourself in a situation where social distancing constraints were difficult to satisfy these last seven days?</label>
         </p>

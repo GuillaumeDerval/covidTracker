@@ -1,11 +1,30 @@
-from flask import render_template, send_from_directory, request, redirect, Response
+from flask import render_template, send_from_directory, request, redirect, Response, abort, Blueprint, g, url_for
 
-from covidbelgium import app, get_locale
+from covidbelgium import get_locale
 from covidbelgium.database import db_session
 from covidbelgium.models import Answers, Sex, LikelyScale
 from datetime import datetime
 
 from covidbelgium.passwords import gen_password, hash_password, check_password
+
+multilingual = Blueprint('multilingual', __name__, template_folder='templates', url_prefix='/<lang>')
+
+
+@multilingual.url_defaults
+def add_language_code(endpoint, values):
+    values.setdefault('lang', g.locale)
+
+
+@multilingual.url_value_preprocessor
+def pull_lang_code(endpoint, values):
+    g.locale = values.pop('lang')
+
+
+@multilingual.before_request
+def before_request():
+    get_locale()
+    if g.locale not in ["fr", "en", "nl", "de"]:
+        abort(404)
 
 
 def get_password_list():
@@ -30,8 +49,8 @@ def parse_date(string):
     except:
         return datetime.strptime(string, '%Y-%m-%d')
 
-@app.route('/')
-@app.route('/index')
+@multilingual.route('/')
+@multilingual.route('/index')
 def index(error=False):
     a = Answers("b67d51c9e670a678ce0e4c1d973d1b05400e174d3207d8ae4e37db9109300bba", LikelyScale.certain, Sex.male, 5, datetime.utcnow(), datetime.utcnow())
     db_session.add(a)
@@ -43,25 +62,25 @@ def index(error=False):
     return render_template('index.html', entries=entries)
 
 
-@app.route('/index-error')
+@multilingual.route('/index-error')
 def index_error():
     return index(True)
 
 
-@app.route("/new-id")
+@multilingual.route("/new-id")
 def new_id():
     locale = str(get_locale())
     new_password = gen_password(locale)
-    resp = redirect("/form", 302)
+    resp = redirect(url_for('multilingual.form'), 302)
     resp.set_cookie('cur_pass', new_password)
     return resp
 
 
-@app.route("/reuse-id", methods=["GET", "POST"])
+@multilingual.route("/reuse-id", methods=["GET", "POST"])
 def reuse_id():
     password = request.form.get("password", "")
     if check_password(password) and Answers.find_last_by_hash(hash_password(password)) is not None:
-        resp = redirect("/form", 302)
+        resp = redirect(url_for('multilingual.form'), 302)
         resp.set_cookie('cur_pass', password)
         add_password_to_list(resp, password)
         return resp
@@ -69,11 +88,11 @@ def reuse_id():
         return render_template('reuse-id.html', password=password)
 
 
-@app.route("/form", methods=["GET", "POST"])
+@multilingual.route("/form", methods=["GET", "POST"])
 def form():
     password = request.cookies.get("cur_pass")
     if password is None:
-        return redirect("/index-error", 302)
+        return redirect(url_for('multilingual.index_error'), 302)
     if request.method == "GET": #Serve the form
         return render_template('form.html', password=password)
     else: #Save in db and serve next form
@@ -98,11 +117,11 @@ def form():
         db_session.commit()
         return render_template('form_distancing.html', password=password)
 
-@app.route("/social-distancing-form")
+@multilingual.route("/social-distancing-form")
 def social_distancing_form():
     password = request.cookies.get("cur_pass")
     if password is None:
-        return redirect("/index-error", 302)
+        return redirect(url_for('multilingual.index_error'), 302)
     return render_template('form_distancing.html', password=password)
 
     # let's do this at the end of the form instead.

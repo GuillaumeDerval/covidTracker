@@ -5,7 +5,7 @@
         Fill this form to contribute. <a href="#">Everything is strictly anonymous</a>, don't worry!
     </p>
 
-    <form action="form" method="post">
+    <form action="{{ url_for('multilingual.form') }}" method="post">
         <div class="field">
             <label for="sex" class="label">Sex</label>
             <div class="control">

@@ -1,6 +1,6 @@
 {% extends "tpl.html" %}
 {% block content %}
-    <form action="/reuse-id" method="post">
+    <form action="{{ url_for('multilingual.reuse_id') }}" method="post">
         {% if password %}
             <p class="alert">Invalid password!</p>
         {% endif %}
