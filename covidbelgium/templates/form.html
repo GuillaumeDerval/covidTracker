@@ -5,7 +5,7 @@
         Fill this form to contribute. <a href="#">Everything is strictly anonymous</a>, don't worry!
     </p>
 
-    <form action="{{ url_for('multilingual.form') }}" method="post">
+    <form action="{{ url_for('multilingual.form') }}" method="post" name="main_form">
         <div class="field">
             <label for="sex" class="label">Sex</label>
             <div class="control">
@@ -40,7 +40,7 @@
         <div class="field">
             <label for="status" class="label">How likely is it that you suffer(ed) from COVID-19?</label>
             {% set statuses = [('extremely_unlikely', _('Extremely unlikely')),
-                                 ('unlikely', _("Unlikely")),
+                                 ('unlikely', _("Unlikely (I had or still have very little symptoms)")),
                                  ('neutral', _("Maybe (I had or still have some symptoms)")),
                                  ('likely', _("Likely (I had or still have most symptoms)")),
                                  ('certain', _("Certain (confirmed by medical test)"))] %}
@@ -57,7 +57,11 @@
                 </div>
             </div>
         </div>
-        <div class="field">
+        <div id="no-need-to-fill" class="notification is-primary is-hidden">
+            Good news, you don't need to fill the fields below, as you were/are not sick! <br/>
+            Simply submit the form at the bottom of the page.
+        </div>
+        <div class="field" id="when_sick_field">
             <label for="timing" class="label">When were you sick?</label>
             <div class="columns">
                 <div class="column">
@@ -76,7 +80,7 @@
                 </div>
             </div>
         </div>
-        <div class="field">
+        <div class="field" id="symptoms_field">
             <label for="symptoms" class="label">Which symptoms did you experience?</label>
             <div class="control">
                 <div class="columns">
@@ -103,4 +107,46 @@
         </div>
 
     </form>
+
+    <script type="text/javascript">
+        /* Disable the datetime fields + symptoms if "very unlikely" is selected */
+        function disable_or_enable_field(field, new_status) {
+            var inputs = field.getElementsByTagName('input');
+            for(var i = 0; i < inputs.length; i++)
+                inputs[i].disabled = !new_status;
+            if (new_status) {
+                field.classList.remove("is-disabled");
+            }
+            else {
+                field.classList.add("is-disabled");
+            }
+        }
+
+        function radio_status_checked(radio) {
+            if(radio.value === "extremely_unlikely") {
+                disable_or_enable_field(document.getElementById("when_sick_field"), false);
+                disable_or_enable_field(document.getElementById("symptoms_field"), false);
+                document.getElementById("no-need-to-fill").classList.remove("is-hidden");
+            }
+            else {
+                disable_or_enable_field(document.getElementById("when_sick_field"), true);
+                disable_or_enable_field(document.getElementById("symptoms_field"), true);
+                document.getElementById("no-need-to-fill").classList.add("is-hidden");
+            }
+        }
+
+
+        var rad = document.main_form.status;
+        var prev = null;
+        for (var i = 0; i < rad.length; i++) {
+            rad[i].addEventListener('change', function() {
+                if(this.checked)
+                    radio_status_checked(this);
+            });
+            if(rad[i].checked)
+                radio_status_checked(rad[i]);
+        }
+
+        /* Checks content before authorizing the form to be submitted */
+    </script>
 {% endblock %}
