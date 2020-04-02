@@ -38,6 +38,10 @@
             </div>
         </div>
         <div class="field">
+            <label for="municipality" class="label">Municipality code</label>
+            <input name="municipality" class="input is-primary" id="municipality" placeholder="1000" required>
+        </div>
+        <div class="field">
             <label for="status" class="label">How likely is it that you suffer(ed) from COVID-19?</label>
             {% set statuses = [('extremely_unlikely', _('Extremely unlikely')),
                                  ('unlikely', _("Unlikely (I had or still have very little symptoms)")),
@@ -84,11 +88,32 @@
             <label for="symptoms" class="label">Which symptoms did you experience?</label>
             <div class="control">
                 <div class="columns">
-                    {% set symptoms = [('caugh', _('Dry Cough')),
-                                 ('fever', _("Fever")),
-                                 ('smell', _("Sudden loss of smell")),
+                    {% set symptoms = [
+                                 ('vomit', _("Vomiting")),
+                                 ('nose', _("Stuffy or runny nose")),
+                                 ('fever', _("High fever (> 38°C)")),
+                                 ('smell', _("Loss of smell or taste")),
                                  ('breathing', _("Breathing difficulties")),
-                                 ('tiredness', _("Tiredness"))] %} {# TODO: finish the list #}
+                                 ('tiredness', _("Tiredness"))] %}
+                    {% for value, name in symptoms %}
+                        <div class="column">
+                            <input class="is-checkradio is-block is-custom-checkradio-block"
+                                   id="symptoms_{{ value }}" type="checkbox"
+                                   name="symptoms_{{ value }}">
+                            <label for="symptoms_{{ value }}">{{ name }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="control">
+                <div class="columns">
+                    {% set symptoms = [
+                                 ('caugh', _('Dry Cough')),
+                                 ('shivers', _("Shivers")),
+                                 ('headache', _("Headache")),
+                                 ('muscle', _("Muscle pain")),
+                                 ('throat', _("Sore throat")),
+                                 ('diarrhea', _("Diarrhea")),] %}
                     {% for value, name in symptoms %}
                         <div class="column">
                             <input class="is-checkradio is-block is-custom-checkradio-block"
