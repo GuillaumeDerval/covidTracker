@@ -30,15 +30,24 @@ class Answers(Base):
 
     sex = Column(Enum(Sex), nullable=False)
     age = Column(Integer, nullable=False)  # a multiple of 5
+    municipality = Column(Integer, nullable=False)
 
     symptom_cough = Column(Boolean)
+    symptom_shivers = Column(Boolean)
+    symptom_headache = Column(Boolean)
+    symptom_muscle_pain = Column(Boolean)
+    symptom_throat = Column(Boolean)
+    symptom_diarrhea = Column(Boolean)
+    symptom_vomit = Column(Boolean)
+    symptom_nose = Column(Boolean)
     symptom_fever = Column(Boolean)
     symptom_smell = Column(Boolean)
     symptom_breathing = Column(Boolean)
     symptom_tiredness = Column(Boolean)
 
-    def __init__(self, hash, covid_likely, sex, age, covid_since=None, covid_until=None, symptom_cough=None, symptom_fever=None,
-                 symptom_smell=None, symptom_breathing=None, symptom_tiredness=None):
+    def __init__(self, hash, covid_likely, sex, age, municipality, covid_since=None, covid_until=None, symptom_cough=None, symptom_fever=None,
+                 symptom_smell=None, symptom_breathing=None, symptom_tiredness=None, symptom_shivers=None, symptom_headache=None,
+                 symptom_muscle_pain=None, symptom_throat=None, symptom_diarrhea=None, symptom_vomit=None, symptom_nose=None):
         self.hash = hash
         self.covid_likely = covid_likely
         if self.covid_likely == LikelyScale.likely or self.covid_likely == LikelyScale.certain: #Dates if not neutral
@@ -49,7 +58,15 @@ class Answers(Base):
         assert age % 5 == 0
         self.sex = sex
         self.age = age
+        self.municipality = municipality
         self.symptom_cough = symptom_cough
+        self.symptom_shivers = symptom_shivers
+        self.symptom_headache = symptom_headache
+        self.symptom_muscle_pain = symptom_muscle_pain
+        self.symptom_throat = symptom_throat
+        self.symptom_diarrhea = symptom_diarrhea
+        self.symptom_vomit = symptom_vomit
+        self.symptom_nose = symptom_nose
         self.symptom_fever = symptom_fever
         self.symptom_smell = symptom_smell
         self.symptom_breathing = symptom_breathing
