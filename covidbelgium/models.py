@@ -20,7 +20,7 @@ class LikelyScale(enum.Enum):
 class Answers(Base):
     __tablename__ = 'answers'
     id = Column(Integer, primary_key=True)
-    hash = Column(String(50), nullable=False)
+    hash = Column(String(64), nullable=False)
     datetime = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
     version = Column(Integer, default=1, nullable=False)
 
