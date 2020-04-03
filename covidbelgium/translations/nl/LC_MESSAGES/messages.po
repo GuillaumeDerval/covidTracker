@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-03-29 18:29+0200\n"
+"POT-Creation-Date: 2020-04-03 14:36+0200\n"
 "PO-Revision-Date: 2020-03-29 18:29+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: nl\n"
@@ -16,9 +16,214 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.7.0\n"
+"Generated-By: Babel 2.8.0\n"
 
-#: covidbelgium/templates/form.html:8
-msgid "you see, its in English"
+#: covidbelgium/routes.py:114
+msgid "Please fill in your sex"
 msgstr ""
+
+#: covidbelgium/routes.py:115
+msgid "Please fill in your age"
+msgstr ""
+
+#: covidbelgium/routes.py:116
+msgid "Please fill in your municipality"
+msgstr ""
+
+#: covidbelgium/routes.py:122
+msgid "Please select your status w.r.t Covid-19."
+msgstr ""
+
+#: covidbelgium/routes.py:124 covidbelgium/routes.py:125
+#: covidbelgium/templates/form.html:231
+msgid "Invalid date format. Please enter it as dd/mm/yyyy, like 20/03/2019."
+msgstr ""
+
+#: covidbelgium/routes.py:128 covidbelgium/templates/form.html:236
+msgid "Invalid dates, you should fall ill before being cared."
+msgstr ""
+
+#: covidbelgium/routes.py:130
+msgid "Invalid start of symptoms date."
+msgstr ""
+
+#: covidbelgium/routes.py:132 covidbelgium/templates/form.html:252
+msgid ""
+"If you think you are/were ill, please select the symptoms you faced. If "
+"you did not experience any of them, it is extremely unlikely you had "
+"covid-19."
+msgstr ""
+
+#: covidbelgium/routes.py:136
+msgid ""
+"If you had some symptoms, it is not extremely unlikely that you had "
+"Covid-19."
+msgstr ""
+
+#: covidbelgium/templates/form.html:12
+#: covidbelgium/templates/form_distancing.html:23
+msgid "(no error... yet)"
+msgstr ""
+
+#: covidbelgium/templates/form.html:40
+msgid "Select your age"
+msgstr ""
+
+#: covidbelgium/templates/form.html:54
+msgid "Extremely unlikely"
+msgstr ""
+
+#: covidbelgium/templates/form.html:55
+msgid "Unlikely (I had or still have very little symptoms)"
+msgstr ""
+
+#: covidbelgium/templates/form.html:56
+msgid "Maybe (I had or still have some symptoms)"
+msgstr ""
+
+#: covidbelgium/templates/form.html:57
+msgid "Likely (I had or still have most symptoms)"
+msgstr ""
+
+#: covidbelgium/templates/form.html:58
+msgid "Certain (confirmed by medical test)"
+msgstr ""
+
+#: covidbelgium/templates/form.html:100
+msgid "Vomiting"
+msgstr ""
+
+#: covidbelgium/templates/form.html:101
+msgid "Stuffy or runny nose"
+msgstr ""
+
+#: covidbelgium/templates/form.html:102
+msgid "High fever (> 38°C)"
+msgstr ""
+
+#: covidbelgium/templates/form.html:103
+msgid "Loss of smell or taste"
+msgstr ""
+
+#: covidbelgium/templates/form.html:104
+msgid "Breathing difficulties"
+msgstr ""
+
+#: covidbelgium/templates/form.html:105
+msgid "Tiredness"
+msgstr ""
+
+#: covidbelgium/templates/form.html:119
+msgid "Dry Cough"
+msgstr ""
+
+#: covidbelgium/templates/form.html:120
+msgid "Shivers"
+msgstr ""
+
+#: covidbelgium/templates/form.html:121
+msgid "Headache"
+msgstr ""
+
+#: covidbelgium/templates/form.html:122
+msgid "Muscle pain"
+msgstr ""
+
+#: covidbelgium/templates/form.html:123
+msgid "Sore throat"
+msgstr ""
+
+#: covidbelgium/templates/form.html:124
+msgid "Diarrhea"
+msgstr ""
+
+#: covidbelgium/templates/form.html:137
+msgid "Please do not fill this if you are a human"
+msgstr ""
+
+#: covidbelgium/templates/form.html:139
+msgid "do not fill me"
+msgstr ""
+
+#: covidbelgium/templates/form.html:144
+msgid ""
+"If you are not a droid, and purposefully deactivated javascript, fill "
+"this entry with the word '{}'"
+msgstr ""
+
+#: covidbelgium/templates/form.html:146
+msgid "fill me with what's indicated above"
+msgstr ""
+
+#: covidbelgium/templates/form_distancing.html:29
+#: covidbelgium/templates/form_distancing.html:49
+msgid "Never"
+msgstr ""
+
+#: covidbelgium/templates/form_distancing.html:30
+msgid "Rarely (1-2 times)"
+msgstr ""
+
+#: covidbelgium/templates/form_distancing.html:31
+msgid "Sometimes (3-5 times)"
+msgstr ""
+
+#: covidbelgium/templates/form_distancing.html:32
+msgid "Often (5-10 times)"
+msgstr ""
+
+#: covidbelgium/templates/form_distancing.html:33
+#: covidbelgium/templates/form_distancing.html:52
+msgid "Always"
+msgstr ""
+
+#: covidbelgium/templates/form_distancing.html:50
+msgid "Rarely (1 day a week)"
+msgstr ""
+
+#: covidbelgium/templates/form_distancing.html:51
+msgid "Sometimes (2-3 days a week)"
+msgstr ""
+
+#: covidbelgium/templates/form_distancing.html:53
+msgid "Doesn't apply (I don't have a job)"
+msgstr ""
+
+#: covidbelgium/templates/form_distancing.html:81
+#: covidbelgium/templates/form_distancing.html:85
+msgid "Strongly disagree"
+msgstr ""
+
+#: covidbelgium/templates/form_distancing.html:82
+msgid "Disagree"
+msgstr ""
+
+#: covidbelgium/templates/form_distancing.html:83
+msgid "Neutral"
+msgstr ""
+
+#: covidbelgium/templates/form_distancing.html:84
+msgid "Agree"
+msgstr ""
+
+#: covidbelgium/templates/index.html:11
+msgid ""
+"Your IP (aka people in your home) updated too many profiles today, please"
+" wait tomorrow. This ensures that we keep good quality data."
+msgstr ""
+
+#: covidbelgium/templates/index.html:48
+msgid "I want to participate!"
+msgstr ""
+
+#: covidbelgium/templates/index.html:52
+msgid "I already filled the form, but my profile is not listed above"
+msgstr ""
+
+#: covidbelgium/templates/index.html:54
+msgid "I already filled the form, let me update it!"
+msgstr ""
+
+#~ msgid "you see, its in English"
+#~ msgstr ""
 
