@@ -6,49 +6,55 @@
                 <h1 class="title is-size-1 ">
                     Fight the virus with <span class="is-family-code">data</span>!
                 </h1>
-                {% if entries %}
-                    <h2 class="subtitle">Update your profile:</h2>
-                    <div class="columns">
-                        {% for password, profile in entries.items() %}
-                            <div class="column">
-                                <form action="{{ url_for('multilingual.reuse_id') }}" method="post">
-                                    <input type="hidden" name="password" value="{{ password }}"/>
-                                    <ul>
-                                        <li>ID: {{ password }}</li>
-                                        <li>Sex:
-                                            {% if profile.sex == "male" %}
-                                                Male
-                                            {% else %}
-                                                Female
-                                            {% endif %}
-                                        </li>
-                                        <li>Age: {{ profile.age }} - {{ profile.age + 4 }}</li>
-                                        <li>
-                                            {% if profile.has_covid %}
-                                                Has Covid-19
-                                            {% elif profile.had_covid %}
-                                                Had Covid-19
-                                            {% endif %}
-                                        </li>
-                                        <li>
-                                            <button type="submit">Update this profile</button>
-                                        </li>
-                                    </ul>
-                                </form>
-                            </div>
-                        {% endfor %}
+                {% if not ip_ok %}
+                    <div class="notification is-danger">
+                        {{ _("Your IP (aka people in your home) updated too many profiles today, please wait tomorrow. This ensures that we keep good quality data.") }}
+                    </div>
+                {% else %}
+                    {% if entries %}
+                        <h2 class="subtitle">Update your profile:</h2>
+                        <div class="columns">
+                            {% for password, profile in entries.items() %}
+                                <div class="column">
+                                    <form action="{{ url_for('multilingual.reuse_id') }}" method="post">
+                                        <input type="hidden" name="password" value="{{ password }}"/>
+                                        <ul>
+                                            <li>ID: {{ password }}</li>
+                                            <li>Sex:
+                                                {% if profile.sex == "male" %}
+                                                    Male
+                                                {% else %}
+                                                    Female
+                                                {% endif %}
+                                            </li>
+                                            <li>Age: {{ profile.age }} - {{ profile.age + 4 }}</li>
+                                            <li>
+                                                {% if profile.has_covid %}
+                                                    Has Covid-19
+                                                {% elif profile.had_covid %}
+                                                    Had Covid-19
+                                                {% endif %}
+                                            </li>
+                                            <li>
+                                                <button type="submit">Update this profile</button>
+                                            </li>
+                                        </ul>
+                                    </form>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="buttons is-centered">
+                    <a href="{{ url_for('multilingual.new_id') }}" class="button is-dark is-large is-centered">{{ _("I want to participate!") }}</a>
+                    </div>
+                    <div class="buttons is-centered">
+                        {% if entries %}
+                            <a href="{{ url_for('multilingual.reuse_id') }}" class="button is-dark is-centered">{{ _("I already filled the form, but my profile is not listed above") }}</a>
+                        {% else %}
+                            <a href="{{ url_for('multilingual.reuse_id') }}" class="button is-dark is-centered">{{ _("I already filled the form, let me update it!") }}</a>
+                        {% endif %}
                     </div>
                 {% endif %}
-                <div class="buttons is-centered">
-                <a href="{{ url_for('multilingual.new_id') }}" class="button is-dark is-large is-centered">{{ _("I want to participate!") }}</a>
-                </div>
-                <div class="buttons is-centered">
-                    {% if entries %}
-                        <a href="{{ url_for('multilingual.reuse_id') }}" class="button is-dark is-centered">{{ _("I already filled the form, but my profile is not listed above") }}</a>
-                    {% else %}
-                        <a href="{{ url_for('multilingual.reuse_id') }}" class="button is-dark is-centered">{{ _("I already filled the form, let me update it!") }}</a>
-                    {% endif %}
-                </div>
             </div>
         </div>
         <div class="hero-foot">

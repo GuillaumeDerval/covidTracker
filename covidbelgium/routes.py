@@ -3,13 +3,14 @@ from flask_babel import gettext
 
 from covidbelgium import get_locale
 from covidbelgium.database import db_session
+from covidbelgium.ip_check import IPBan
 from covidbelgium.models import Answers, Sex, LikelyScale
 from datetime import date, datetime, timedelta
 
 from covidbelgium.passwords import gen_password, hash_password, check_password
 
 multilingual = Blueprint('multilingual', __name__, template_folder='templates', url_prefix='/<lang>')
-
+main_form_ip_check = IPBan(limit=10, add_day_to_key=True)
 
 @multilingual.url_defaults
 def add_language_code(endpoint, values):
@@ -56,7 +57,7 @@ def index(error=False):
     passwords = passwords[:15]  # max 15 profiles listed.
     entries = {pwd: Answers.find_last_by_hash(hash_password(pwd)) for pwd in passwords}
     entries = {pwd: entry for pwd, entry in entries.items() if entry is not None}
-    return render_template('index.html', entries=entries)
+    return render_template('index.html', entries=entries, ip_ok=main_form_ip_check.is_ok())
 
 
 @multilingual.route('/index-error')
@@ -86,7 +87,7 @@ def reuse_id():
 @multilingual.route("/form", methods=["GET", "POST"])
 def form():
     password = session.get("cur_pass")
-    if password is None:
+    if password is None or not main_form_ip_check.is_ok():
         return redirect(url_for('multilingual.index_error'), 302)
 
     if request.method == "GET":  # Serve the form
@@ -153,7 +154,6 @@ def form():
             elif datetime.utcnow() - session.get("form_opened") < timedelta(seconds=4):
                 current_app.logger.info('Robot filled the form a bit too fast %s', str(datetime.utcnow() - session.get("form_opened")))
                 is_robot = True
-            # TODO IP check
 
             if not is_robot:
                 answer = Answers(hash_password(password), covid_likely, sex, age, municipality, covid_start, covid_end, *symptoms)
@@ -162,6 +162,8 @@ def form():
 
             # You can submit only once :-)
             session["form_opened"] = None
+            # Update the IP checker
+            main_form_ip_check.incr()
 
             return render_template('form_distancing.html', password=password)
         else:
