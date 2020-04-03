@@ -1,4 +1,4 @@
-from flask import Flask, request, g, Blueprint, abort, redirect, url_for
+from flask import Flask, request, g, Blueprint, abort, redirect, url_for, session
 from flask_babel import Babel
 from flask_babel import gettext, ngettext
 from covidbelgium.config import Config
@@ -34,6 +34,7 @@ def shutdown_session(exception=None):
 @app.before_request
 def before_request():
     get_locale()
+    session.permanent = True
 
 
 @app.route('/')

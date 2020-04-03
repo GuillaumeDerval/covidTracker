@@ -1,4 +1,4 @@
-from flask import render_template, send_from_directory, request, redirect, Response, abort, Blueprint, g, url_for
+from flask import render_template, send_from_directory, request, redirect, Response, abort, Blueprint, g, url_for, session
 from flask_babel import gettext
 
 from covidbelgium import get_locale
@@ -30,18 +30,15 @@ def before_request():
 
 def get_password_list():
     """ List previously-used passwords from the cookie """
-    pwds = request.cookies.get('passwords', None)
-    if pwds is None:
-        return []
-    return pwds.split("/")
+    return session.get('passwords', [])
 
 
-def add_password_to_list(response: Response, password: str):
+def add_password_to_list(password: str):
     """ Takes a response object, and update the cookie for the password with the new password. """
     pwds = get_password_list()
     if password not in pwds:
         pwds = [password] + pwds
-    response.set_cookie('passwords', "/".join(pwds))
+    session["passwords"] = pwds
 
 
 def parse_date(string):
@@ -70,9 +67,8 @@ def index_error():
 @multilingual.route("/new-id")
 def new_id():
     locale = str(get_locale())
-    new_password = gen_password(locale)
+    session["cur_pass"] = gen_password(locale)
     resp = redirect(url_for('multilingual.form'), 302)
-    resp.set_cookie('cur_pass', new_password)
     return resp
 
 
@@ -80,19 +76,19 @@ def new_id():
 def reuse_id():
     password = request.form.get("password", "")
     if check_password(password) and Answers.find_last_by_hash(hash_password(password)) is not None:
-        resp = redirect(url_for('multilingual.form'), 302)
-        resp.set_cookie('cur_pass', password)
-        add_password_to_list(resp, password)
-        return resp
+        add_password_to_list(password)
+        session["cur_pass"] = password
+        return redirect(url_for('multilingual.form'), 302)
     else:
         return render_template('reuse-id.html', password=password)
 
 
 @multilingual.route("/form", methods=["GET", "POST"])
 def form():
-    password = request.cookies.get("cur_pass")
+    password = session.get("cur_pass")
     if password is None:
         return redirect(url_for('multilingual.index_error'), 302)
+
     if request.method == "GET":  # Serve the form
         return render_template('form.html', password=password)
     else:  # Save in db and serve next form
@@ -163,15 +159,8 @@ def form():
 
 @multilingual.route("/social-distancing-form")
 def social_distancing_form():
-    password = request.cookies.get("cur_pass")
+    password = session.get("cur_pass")
     if password is None:
         return redirect(url_for('multilingual.index_error'), 302)
-    return render_template('form_distancing.html', password=password)
 
-    # let's do this at the end of the form instead.
-    # passwords = request.cookies.get('passwords')
-    # if passwords is not None:
-    #     passwords = passwords.split("/")
-    # else:
-    #     passwords = []
-    # passwords.append(new_password)
+    return render_template('form_distancing.html', password=password)
