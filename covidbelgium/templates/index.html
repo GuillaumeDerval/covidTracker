@@ -4,7 +4,7 @@
         <div class="hero-body">
             <div class="container has-text-centered ">
                 <h1 class="title is-size-1 ">
-                    Fight the virus with <span class="is-family-code">data</span>!
+                    {{ _("Fight the virus with <span class='is-family-code'>data</span>!") }}
                 </h1>
                 {% if not ip_ok %}
                     <div class="notification is-danger">
@@ -12,7 +12,7 @@
                     </div>
                 {% else %}
                     {% if entries %}
-                        <h2 class="subtitle">Update your profile:</h2>
+                        <h2 class="subtitle">{{ _("Update your profile:") }}</h2>
                         <div class="columns">
                             {% for password, profile in entries.items() %}
                                 <div class="column">
@@ -59,7 +59,7 @@
         </div>
         <div class="hero-foot">
             <div class="container has-text-centered is-size-4">
-                <p>⬇️ More information below ⬇️️</p>
+                <p>⬇️ {{ _("More information below") }} ⬇️️</p>
             </div>
         </div>
     </section>

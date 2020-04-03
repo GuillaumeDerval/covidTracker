@@ -2,7 +2,8 @@
 {% block content %}
 
     <p class="is-size-4 subtitle">
-        Fill this form to contribute. <a href="#">Everything is strictly anonymous</a>, don't worry!
+        {{ _("Fill this form to contribute.") }}
+        {{ _('<a href="{}">Everything is strictly anonymous</a>, don\'t worry!').format("#") }}
     </p>
 
     <div id="error-message" class="notification is-danger {% if not errors %}is-hidden{% endif %}">
@@ -15,7 +16,7 @@
 
     <form action="{{ url_for('multilingual.form') }}" method="post" name="main_form">
         <div class="field">
-            <label for="sex" class="label">Sex</label>
+            <label for="sex" class="label">{{ _("Sex") }}</label>
             <div class="control">
                 <div class="columns">
                     <div class="column">
@@ -33,7 +34,7 @@
             </div>
         </div>
         <div class="field">
-            <label for="age" class="label">Age</label>
+            <label for="age" class="label">{{ _("Age")}} </label>
             <div class="control">
                 <div class="select is-primary">
                     <select name="age" id="age" required>
@@ -46,11 +47,11 @@
             </div>
         </div>
         <div class="field">
-            <label for="municipality" class="label">Municipality code</label>
+            <label for="municipality" class="label">{{ _("Municipality code") }}</label>
             <input name="municipality" class="input is-primary" id="municipality" placeholder="1000" required>
         </div>
         <div class="field">
-            <label for="status" class="label">How likely is it that you suffer(ed) from COVID-19?</label>
+            <label for="status" class="label">{{ _("How likely is it that you suffer(ed) from COVID-19?") }}</label>
             {% set statuses = [('extremely_unlikely', _('Extremely unlikely')),
                                  ('unlikely', _("Unlikely (I had or still have very little symptoms)")),
                                  ('neutral', _("Maybe (I had or still have some symptoms)")),
@@ -70,30 +71,30 @@
             </div>
         </div>
         <div id="no-need-to-fill" class="notification is-primary is-hidden">
-            Good news, you don't need to fill the fields below, as you were/are not sick! <br/>
-            Simply submit the form at the bottom of the page.
+            {{ _("Good news, you don't need to fill the fields below, as you were/are not sick!") }} <br/>
+            {{ _("Simply submit the form at the bottom of the page.") }}
         </div>
         <div class="field" id="when_sick_field">
-            <label for="timing" class="label">When were you sick?</label>
+            <label for="timing" class="label">{{ _("When were you sick?") }}</label>
             <div class="columns">
                 <div class="column">
-                    <label for="timing_covid" class="label">From</label>
+                    <label for="timing_covid" class="label">{{ _("From") }}</label>
                     <div class="control">
                         <input type="date" class="input is-primary" name="timing_from" id="timing_covid_from" value=""/>
                     </div>
-                    <p class="help">Put the date where your first symptom appeared</p>
+                    <p class="help">{{ _("Put the date where your first symptom appeared") }}</p>
                 </div>
                 <div class="column">
-                    <label for="timing_covid" class="label">To</label>
+                    <label for="timing_covid" class="label">{{ _("To") }}</label>
                     <div class="control">
                         <input type="date" class="input is-primary" name="timing_to" id="timing_covid_to" value=""/>
                     </div>
-                    <p class="help">If you are still ill, please put any date in the future</p>
+                    <p class="help">{{ _("If you are still ill, please put any date in the future") }}</p>
                 </div>
             </div>
         </div>
         <div class="field" id="symptoms_field">
-            <label for="symptoms" class="label">Which symptoms did you experience?</label>
+            <label for="symptoms" class="label">{{ _("Which symptoms did you experience?") }}</label>
             <div class="control">
                 <div class="columns">
                     {% set symptoms = [
@@ -149,7 +150,7 @@
         </noscript>
         <div class="field">
             <div class="buttons is-centered" style="margin-top: 3em">
-                <button type="submit" class="button is-primary is-large">Click here to continue</button>
+                <button type="submit" class="button is-primary is-large">{{ _("Click here to continue") }}</button>
             </div>
         </div>
 

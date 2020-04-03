@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-03 14:36+0200\n"
+"POT-Creation-Date: 2020-04-03 15:48+0200\n"
 "PO-Revision-Date: 2020-03-29 18:29+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -35,11 +35,13 @@ msgid "Please select your status w.r.t Covid-19."
 msgstr "Veuillez indiquer votre status par rapport au Covid-19."
 
 #: covidbelgium/routes.py:124 covidbelgium/routes.py:125
-#: covidbelgium/templates/form.html:231
+#: covidbelgium/templates/form.html:232
 msgid "Invalid date format. Please enter it as dd/mm/yyyy, like 20/03/2019."
-msgstr "Format de date invalide. Merci de l'entrer au format jj/mm/aaaa, comme par exemple 20/03/2019"
+msgstr ""
+"Format de date invalide. Merci de l'entrer au format jj/mm/aaaa, comme "
+"par exemple 20/03/2019"
 
-#: covidbelgium/routes.py:128 covidbelgium/templates/form.html:236
+#: covidbelgium/routes.py:128 covidbelgium/templates/form.html:237
 msgid "Invalid dates, you should fall ill before being cared."
 msgstr "Dates invalides. Vous êtes probabelement tombé malade avant d'être soigné."
 
@@ -47,116 +49,182 @@ msgstr "Dates invalides. Vous êtes probabelement tombé malade avant d'être so
 msgid "Invalid start of symptoms date."
 msgstr "La date de début des symptomes est invalide."
 
-#: covidbelgium/routes.py:132 covidbelgium/templates/form.html:252
+#: covidbelgium/routes.py:132 covidbelgium/templates/form.html:253
 msgid ""
 "If you think you are/were ill, please select the symptoms you faced. If "
 "you did not experience any of them, it is extremely unlikely you had "
 "covid-19."
 msgstr ""
-"Si vous pensez que vous êtes ou avez été malade, merci de sélectionner les symptomes que vous avez subit."
-" Si vous n'avez eu aucun d'entre eux, vous n'aviez certainement pas le Covid-19."
+"Si vous pensez que vous êtes ou avez été malade, merci de sélectionner "
+"les symptomes que vous avez subit. Si vous n'avez eu aucun d'entre eux, "
+"vous n'aviez certainement pas le Covid-19."
 
 #: covidbelgium/routes.py:136
 msgid ""
 "If you had some symptoms, it is not extremely unlikely that you had "
 "Covid-19."
-msgstr "Si vous avez eu certains symptomes, il n'est pas extrêmement peu probable que vous ayez eu le Covid-19."
+msgstr ""
+"Si vous avez eu certains symptomes, il n'est pas extrêmement peu probable"
+" que vous ayez eu le Covid-19."
 
-#: covidbelgium/templates/form.html:12
+#: covidbelgium/templates/form.html:5
+msgid "Fill this form to contribute."
+msgstr "Remplissez ce formulaire pour contribuer."
+
+#: covidbelgium/templates/form.html:6
+msgid "<a href=\"{}\">Everything is strictly anonymous</a>, don't worry!"
+msgstr "<a href=\"{}\">Tout est strictement anonyme</a>, pas d'inquiétudes!"
+
+#: covidbelgium/templates/form.html:13
 #: covidbelgium/templates/form_distancing.html:23
 msgid "(no error... yet)"
 msgstr "(pas d'erreurs... pour l'instant)"
 
-#: covidbelgium/templates/form.html:40
+#: covidbelgium/templates/form.html:19
+msgid "Sex"
+msgstr "Sexe"
+
+#: covidbelgium/templates/form.html:37
+msgid "Age"
+msgstr "Age"
+
+#: covidbelgium/templates/form.html:41
 msgid "Select your age"
 msgstr "Sélectionnez votre tranche d'âge"
 
+#: covidbelgium/templates/form.html:50
+msgid "Municipality code"
+msgstr "Code postal"
+
 #: covidbelgium/templates/form.html:54
+msgid "How likely is it that you suffer(ed) from COVID-19?"
+msgstr "Pensez-vous souffrir ou avoir souffert du Covid-19?"
+
+#: covidbelgium/templates/form.html:55
 msgid "Extremely unlikely"
 msgstr "Extrêmement peu probable"
 
-#: covidbelgium/templates/form.html:55
+#: covidbelgium/templates/form.html:56
 msgid "Unlikely (I had or still have very little symptoms)"
 msgstr "Peu probable (J'ai ou j'ai eu des symptomes, peu nombreux et faibles)"
 
-#: covidbelgium/templates/form.html:56
+#: covidbelgium/templates/form.html:57
 msgid "Maybe (I had or still have some symptoms)"
 msgstr "Peut-être (J'ai eu ou j'ai toujours plusieurs symptomes)"
 
-#: covidbelgium/templates/form.html:57
+#: covidbelgium/templates/form.html:58
 msgid "Likely (I had or still have most symptoms)"
 msgstr "Très probable (J'ai eu ou j'ai toujours la majorité des symptomes)"
 
-#: covidbelgium/templates/form.html:58
+#: covidbelgium/templates/form.html:59
 msgid "Certain (confirmed by medical test)"
 msgstr "Certain (confirmé par un test médical)"
 
-#: covidbelgium/templates/form.html:100
+#: covidbelgium/templates/form.html:74
+msgid ""
+"Good news, you don't need to fill the fields below, as you were/are not "
+"sick!"
+msgstr "Bonne nouvelle, vous n'avez pas besoin de remplir les champs ci-dessous, étant donné que vous n'avez pas été malade!"
+
+#: covidbelgium/templates/form.html:75
+msgid "Simply submit the form at the bottom of the page."
+msgstr "Vous n'avez plus qu'à soumettre le formulaire en appuyant sur le bouton en bas de la page."
+
+#: covidbelgium/templates/form.html:78
+msgid "When were you sick?"
+msgstr "Quand étiez-vous malade?"
+
+#: covidbelgium/templates/form.html:81
+msgid "From"
+msgstr "Depuis le"
+
+#: covidbelgium/templates/form.html:85
+msgid "Put the date where your first symptom appeared"
+msgstr "Indiquez la date à laquelle votre premier symptome est apparu"
+
+#: covidbelgium/templates/form.html:88
+msgid "To"
+msgstr "Jusqu'au"
+
+#: covidbelgium/templates/form.html:92
+msgid "If you are still ill, please put any date in the future"
+msgstr "Si vous êtes toujours malade, mettez n'importe quelle date dans le futur"
+
+#: covidbelgium/templates/form.html:97
+msgid "Which symptoms did you experience?"
+msgstr "Quels symptomes avez-vous eu?"
+
+#: covidbelgium/templates/form.html:101
 msgid "Vomiting"
 msgstr "Vomissements"
 
-#: covidbelgium/templates/form.html:101
+#: covidbelgium/templates/form.html:102
 msgid "Stuffy or runny nose"
 msgstr "Nez bouché ou qui coule"
 
-#: covidbelgium/templates/form.html:102
+#: covidbelgium/templates/form.html:103
 msgid "High fever (> 38°C)"
 msgstr "Fièvre importante (> 38°C)"
 
-#: covidbelgium/templates/form.html:103
+#: covidbelgium/templates/form.html:104
 msgid "Loss of smell or taste"
 msgstr "Perdu du goût ou de l'odorat"
 
-#: covidbelgium/templates/form.html:104
+#: covidbelgium/templates/form.html:105
 msgid "Breathing difficulties"
 msgstr "Difficultés respiratoires"
 
-#: covidbelgium/templates/form.html:105
+#: covidbelgium/templates/form.html:106
 msgid "Tiredness"
 msgstr "Fatigue"
 
-#: covidbelgium/templates/form.html:119
+#: covidbelgium/templates/form.html:120
 msgid "Dry Cough"
 msgstr "Toux sèche"
 
-#: covidbelgium/templates/form.html:120
+#: covidbelgium/templates/form.html:121
 msgid "Shivers"
 msgstr "Frissons"
 
-#: covidbelgium/templates/form.html:121
+#: covidbelgium/templates/form.html:122
 msgid "Headache"
 msgstr "Migraine"
 
-#: covidbelgium/templates/form.html:122
+#: covidbelgium/templates/form.html:123
 msgid "Muscle pain"
 msgstr "Douleurs musculaires"
 
-#: covidbelgium/templates/form.html:123
+#: covidbelgium/templates/form.html:124
 msgid "Sore throat"
 msgstr "Gorge douloureuse"
 
-#: covidbelgium/templates/form.html:124
+#: covidbelgium/templates/form.html:125
 msgid "Diarrhea"
 msgstr "Diarhée"
 
-#: covidbelgium/templates/form.html:137
+#: covidbelgium/templates/form.html:138
 msgid "Please do not fill this if you are a human"
 msgstr "Merci de ne pas remplir ceci si vous êtes un humain"
 
-#: covidbelgium/templates/form.html:139
+#: covidbelgium/templates/form.html:140
 msgid "do not fill me"
 msgstr "ne pas me remplir"
 
-#: covidbelgium/templates/form.html:144
+#: covidbelgium/templates/form.html:145
 msgid ""
 "If you are not a droid, and purposefully deactivated javascript, fill "
 "this entry with the word '{}'"
-msgstr "If si vous n'êtes pas un droide, et que vous avez expressement désactivé Javascript, merci de remplir cette "
-"entrée avec le mot '{}'"
+msgstr ""
+"If si vous n'êtes pas un droide, et que vous avez expressement désactivé "
+"Javascript, merci de remplir cette entrée avec le mot '{}'"
 
-#: covidbelgium/templates/form.html:146
+#: covidbelgium/templates/form.html:147
 msgid "fill me with what's indicated above"
 msgstr "remplissez-moi avec ce qui est indiqué ci-dessus"
+
+#: covidbelgium/templates/form.html:153
+msgid "Click here to continue"
+msgstr "Cliquez ici pour continuer"
 
 #: covidbelgium/templates/form_distancing.html:29
 #: covidbelgium/templates/form_distancing.html:49
@@ -209,12 +277,22 @@ msgstr "Neutre"
 msgid "Agree"
 msgstr "D'accord"
 
+#: covidbelgium/templates/index.html:7
+msgid "Fight the virus with <span class='is-family-code'>data</span>!"
+msgstr "Combattez le virus avec la <span class='is-family-code'>data</span>!"
+
 #: covidbelgium/templates/index.html:11
 msgid ""
 "Your IP (aka people in your home) updated too many profiles today, please"
 " wait tomorrow. This ensures that we keep good quality data."
-msgstr "Votre ip (c'est à dire les personnes chez vous) ont mis à jour trop de profils aujourd'hui. Merci "
-"d'attendre demain. Cela nous permet de nous assurer que nous gardons des données de bonne qualité."
+msgstr ""
+"Votre ip (c'est à dire les personnes chez vous) ont mis à jour trop de "
+"profils aujourd'hui. Merci d'attendre demain. Cela nous permet de nous "
+"assurer que nous gardons des données de bonne qualité."
+
+#: covidbelgium/templates/index.html:15
+msgid "Update your profile:"
+msgstr "Mettez à jour votre profil:"
 
 #: covidbelgium/templates/index.html:48
 msgid "I want to participate!"
@@ -227,6 +305,10 @@ msgstr "J'ai déjà rempli le formulaire, mais mon profil n'est pas listé ci-de
 #: covidbelgium/templates/index.html:54
 msgid "I already filled the form, let me update it!"
 msgstr "J'ai déjà rempli le formulaire, je veux le mettre à jour!"
+
+#: covidbelgium/templates/index.html:62
+msgid "More information below"
+msgstr "Plus d'informations ci-dessous"
 
 #~ msgid "you see, its in English"
 #~ msgstr "vous voyez, c'est en Français"
