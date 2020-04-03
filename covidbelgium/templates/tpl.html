@@ -6,6 +6,7 @@
         <title>Covid19-form</title>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bulma.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bulma-checkradio.min.css') }}">
+        <script type="text/javascript" src="{{ url_for('static', filename='js/base.js') }}"></script>
         <style type="text/css">
             .is-custom-checkradio-block.is-checkradio + label {
                 display: block;
@@ -74,29 +75,40 @@
         </style>
     </head>
     <body>
-        <nav class="navbar has-background-light">
+        <nav class="navbar has-background-light" role="navigation" aria-label="main navigation">
             <div class="container">
-                <div id="navMenu" class="navbar-menu">
-                    <div class="navbar-start">
-                        <a class="navbar-item is-size-4" href="{{ url_for('multilingual.index') }}">
-                            Covidata<span class="has-text-weight-bold">.be</span>
-                        </a>
-                    </div>
+                <div class="navbar-brand">
+                    <a class="navbar-item is-size-4" href="{{ url_for('multilingual.index') }}">
+                        Covidata<span class="has-text-weight-bold">.be</span>
+                    </a>
 
+                    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                       data-target="navMenu">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div id="navMenu" class="navbar-menu">
                     <div class="navbar-end">
                         <div class="navbar-item">
                             <div class="buttons has-addons are-small">
                                 {% if g.locale != "fr" %}
-                                    <a class="button is-light" href="{{ url_for(request.endpoint, *dict(request.view_args), lang="fr") }}">FR</a>
+                                    <a class="button is-light"
+                                       href="{{ url_for(request.endpoint, *dict(request.view_args), lang="fr") }}">FR</a>
                                 {% endif %}
                                 {% if g.locale != "nl" %}
-                                    <a class="button is-light" href="{{ url_for(request.endpoint, *dict(request.view_args), lang="nl") }}">NL</a>
+                                    <a class="button is-light"
+                                       href="{{ url_for(request.endpoint, *dict(request.view_args), lang="nl") }}">NL</a>
                                 {% endif %}
                                 {% if g.locale != "de" %}
-                                    <a class="button is-light" href="{{ url_for(request.endpoint, *dict(request.view_args), lang="de") }}">DE</a>
+                                    <a class="button is-light"
+                                       href="{{ url_for(request.endpoint, *dict(request.view_args), lang="de") }}">DE</a>
                                 {% endif %}
                                 {% if g.locale != "en" %}
-                                    <a class="button is-light" href="{{ url_for(request.endpoint, *dict(request.view_args), lang="en") }}">EN</a>
+                                    <a class="button is-light"
+                                       href="{{ url_for(request.endpoint, *dict(request.view_args), lang="en") }}">EN</a>
                                 {% endif %}
                             </div>
                         </div>
@@ -109,6 +121,7 @@
                 </div>
             </div>
         </nav>
+
         {% block abovecontent %}
         {% endblock %}
         <section class="section">
@@ -121,7 +134,8 @@
         <footer class="footer">
             <div class="content has-text-centered">
                 <p>
-                    Covidata<span class="has-text-weight-bold">.be</span> is an open-source project by the INGI department @UCLouvain.
+                    Covidata<span class="has-text-weight-bold">.be</span> is an open-source project by the INGI
+                    department @UCLouvain.
                 </p>
                 <div class="buttons is-centered">
                     <a href="mailto:covidata@uclouvain.be" class="button is-link is-outlined">Contact</a>
