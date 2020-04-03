@@ -1,10 +1,10 @@
-from flask import render_template, send_from_directory, request, redirect, Response, abort, Blueprint, g, url_for, session
+from flask import render_template, send_from_directory, request, redirect, Response, abort, Blueprint, g, url_for, session, current_app
 from flask_babel import gettext
 
 from covidbelgium import get_locale
 from covidbelgium.database import db_session
 from covidbelgium.models import Answers, Sex, LikelyScale
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 from covidbelgium.passwords import gen_password, hash_password, check_password
 
@@ -90,8 +90,14 @@ def form():
         return redirect(url_for('multilingual.index_error'), 302)
 
     if request.method == "GET":  # Serve the form
+        session["form_opened"] = datetime.utcnow()
         return render_template('form.html', password=password)
     else:  # Save in db and serve next form
+
+        # "session expired"
+        if session.get("form_opened") is not None and datetime.utcnow() - session.get("form_opened") > timedelta(hours=1):
+            return redirect(url_for('multilingual.index_error'), 302)
+
         errors = []
 
         def check_form(f, error_msg, additional_check=lambda x: True):
@@ -136,18 +142,24 @@ def form():
             # its submission.
             is_robot = False
             if request.values.get('c-1', '') != '':
-                multilingual.logger.info('Robot filled the c-1 variable')
+                current_app.logger.info('Robot filled the c-1 variable')
                 is_robot = True
             if request.values.get('c-2', '') != password.split("-")[0]:
-                multilingual.logger.info('Robot filled the c-2 variable incorrectly')
+                current_app.logger.info('Robot filled the c-2 variable incorrectly')
+                is_robot = True
+            if session.get("form_opened") is None or datetime.utcnow() - session.get("form_opened") < timedelta(seconds=4):
+                current_app.logger.info('Robot filled the form a bit too fast %s', str(datetime.utcnow() - session.get("form_opened")))
                 is_robot = True
             # TODO IP check
-            # TODO time check
 
             if not is_robot:
                 answer = Answers(hash_password(password), covid_likely, sex, age, municipality, covid_start, covid_end, *symptoms)
                 db_session.add(answer)
                 db_session.commit()
+
+            # You can submit only once :-)
+            session["form_opened"] = None
+
             return render_template('form_distancing.html', password=password)
         else:
             return render_template('form.html', password=password, errors=errors, current={
