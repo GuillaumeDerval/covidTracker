@@ -147,7 +147,10 @@ def form():
             if request.values.get('c-2', '') != password.split("-")[0]:
                 current_app.logger.info('Robot filled the c-2 variable incorrectly')
                 is_robot = True
-            if session.get("form_opened") is None or datetime.utcnow() - session.get("form_opened") < timedelta(seconds=4):
+            if session.get("form_opened") is None:
+                current_app.logger.info('Robot did not load the form first, or someone already submitted the form')
+                is_robot = True
+            elif datetime.utcnow() - session.get("form_opened") < timedelta(seconds=4):
                 current_app.logger.info('Robot filled the form a bit too fast %s', str(datetime.utcnow() - session.get("form_opened")))
                 is_robot = True
             # TODO IP check
