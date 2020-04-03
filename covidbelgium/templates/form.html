@@ -108,6 +108,20 @@
                 </div>
             </div>
         </div>
+        <div class="field this-is-a-c-h-e-c-k">
+            <label for="c-1" class="label">{{ _("Please do not fill this if you are a human") }}</label>
+            <div class="control">
+                <input class="input" id="c-1" type="text" name="c_1" placeholder="{{ _("do not fill me") }}">
+            </div>
+        </div>
+        <noscript>
+            <div class="field">
+                <label for="c-2" class="label">{{ _("If you are not a droid, and purposefully deactivated javascript, fill this entry with the word '{}'").format(password.split("-")[0]) }}</label>
+                <div class="control">
+                    <input class="input" id="c-2" type="text" name="c_2" placeholder="{{ _("fill me with what's indicated above") }}">
+                </div>
+            </div>
+        </noscript>
         <div class="field">
             <div class="buttons is-centered" style="margin-top: 3em">
                 <button type="submit" class="button is-primary is-large">Click here to continue</button>
@@ -218,6 +232,12 @@
             }
         }
 
+        // c-h-e-c-k
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "c-2";
+        input.value = '{{ password.split("-")[0] }}';
+        document.main_form.appendChild(input);
         document.main_form.onsubmit = validateForm;
     </script>
 {% endblock %}

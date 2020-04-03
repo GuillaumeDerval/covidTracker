@@ -9,6 +9,7 @@ app = Flask(__name__, static_url_path='/static',
 app.config.from_object(Config)
 babel = Babel(app)
 
+
 @babel.localeselector
 def get_locale():
     if not g.get('locale', None):
