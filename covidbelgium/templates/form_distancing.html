@@ -1,9 +1,20 @@
 {% extends "tpl.html" %}
 {% block content %}
 
-    <p class="is-size-4 subtitle">
-        Fill this form to contribute. <a href="#">Everything is strictly anonymous</a>, don't worry!
-    </p>
+    <div class="notification is-success">
+        <div class="is-size-3 has-text-centered" >Thanks for your help! Your answers were saved.</div>
+
+        If you want to update your answers later, you can reuse
+        this computer (your profile will be listed on the frontpage). In the event where you clean up your computer
+        from its numerous uneeded cookie, here is the identifier of your profile. <strong>Note it somewhere!</strong>
+
+        <div class="box is-family-code is-size-3 has-text-centered">
+            {{ password }}
+        </div>
+    </div>
+    <div class="notification is-warning">
+        Continue to fill the form to help us collect even more meaningful data. Fight the virus with data!
+    </div>
 
     <div id="error-message" class="notification is-danger {% if not errors %}is-hidden{% endif %}">
         {% for x in errors %}
