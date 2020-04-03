@@ -110,8 +110,10 @@ def form():
 
         sex = check_form(lambda: Sex[request.values['sex']], gettext("Please fill in your sex"))
         age = check_form(lambda: int(request.values['age']), gettext("Please fill in your age"), lambda x: x % 5 == 0 and x <= 120)
+        municipality = check_form(lambda: int(request.values['municipality']), gettext("Please fill in your municipality"))
 
-        symptom_list = ["cough", "fever", "smell", "breathing", "tiredness"]  # order is important
+        symptom_list = ["vomit", "nose", "fever", "smell", "breathing", "tiredness", "caugh", "shivers",
+                        "headache", "muscle", "throat", "diarrhea"]  # order is important
         symptoms = [request.values.get(f'symptoms_{x}') is not None for x in symptom_list]
 
         covid_likely = check_form(lambda: LikelyScale[request.values['status']], gettext("Please select your status w.r.t Covid-19."))
@@ -147,14 +149,15 @@ def form():
             # TODO time check
 
             if not is_robot:
-                answer = Answers(hash_password(password), covid_likely, sex, age, covid_start, covid_end, *symptoms)
+                answer = Answers(hash_password(password), covid_likely, sex, age, municipality, covid_start, covid_end, *symptoms)
                 db_session.add(answer)
                 db_session.commit()
             return render_template('form_distancing.html', password=password)
         else:
             return render_template('form.html', password=password, errors=errors, current={
                 "sex": sex, "age": age, "symptoms": {n:v for n,v in zip(symptom_list, symptoms)},
-                "covid_likely": covid_likely, "covid_start": covid_start, "covid_end": covid_end
+                "covid_likely": covid_likely, "covid_start": covid_start, "covid_end": covid_end,
+                "municipality": municipality
             })
 
 

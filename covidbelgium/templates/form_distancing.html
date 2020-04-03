@@ -1,100 +1,100 @@
 {% extends "tpl.html" %}
 {% block content %}
-    FORM. Password: {{ password }}
-    <form action="{{ url_for('multilingual.form') }}" method="post">
-        <p>
-            <label for="distancing">Did you find yourself in a situation where social distancing constraints were difficult to satisfy these last seven days?</label>
-        </p>
-        <ul>
-            <li>
-                <input type="radio" name="status" id="status_distancing_1" value="distancing"/>
-                <label for="status_distancing">Never</label>
-            </li>
-            <li>
-                <input type="radio" name="status" id="status_distancing_2" value="distancing"/>
-                <label for="status_distancing">Rarely</label>
-            </li>
-            <li>
-                <input type="radio" name="status" id="status_distancing_3" value="distancing"/>
-                <label for="status_distancing">Sometimes</label>
-            </li>
-            <li>
-                <input type="radio" name="status" id="status_distancing_4" value="distancing"/>
-                <label for="status_distancing">Often</label>
-            </li>
-            <li>
-                <input type="radio" name="status" id="status_distancing_5" value="distancing"/>
-                <label for="status_distancing">Always</label>
-            </li>
-        </ul>
-         <p>
-            <label for="homeworking">Does your job allows you to homework?</label>
-        </p>
-        <ul>
-            <li>
-                <input type="radio" name="status" id="status_homeworking_1" value="homeworking"/>
-                <label for="status_homeworking">Never</label>
-            </li>
-            <li>
-                <input type="radio" name="status" id="status_homeworking_2" value="homeworking"/>
-                <label for="status_homeworking">Rarely</label>
-            </li>
-            <li>
-                <input type="radio" name="status" id="status_homeworking_3" value="homeworking"/>
-                <label for="status_homeworking">Sometimes</label>
-            </li>
-            <li>
-                <input type="radio" name="status" id="status_homeworking_4" value="homeworking"/>
-                <label for="status_homeworking">Often</label>
-            </li>
-            <li>
-                <input type="radio" name="status" id="status_homeworking_5" value="homeworking"/>
-                <label for="status_homeworking">Always</label>
-            </li>
-            <li>
-                <input type="radio" name="status" id="status_homeworking_6" value="homeworking"/>
-                <label for="status_homeworking">Do not apply (I don't have a job)</label>
-            </li>
-        </ul>
-        <p>
-        <label for="household">How many persons do you live with (you included)?</label>
-        </p>
-        <input type="number" name="household" id="household" value=""/>
-        <p>
-            <label for="leave_house">How many times did you leave your home for something else than work these last seven days? </label>
-        </p>
-        <input type="number" name="left_house" id="left_house" value=""/>
-        <p>
+
+    <p class="is-size-4 subtitle">
+        Fill this form to contribute. <a href="#">Everything is strictly anonymous</a>, don't worry!
+    </p>
+
+    <div id="error-message" class="notification is-danger {% if not errors %}is-hidden{% endif %}">
+        {% for x in errors %}
+            {{ x }}<br/>
+        {% else %}
+            {{ _("(no error... yet)") }}
+        {% endfor %}
+    </div>
+    <form action="{{ url_for('multilingual.form') }}" method="post" name="main_form">
+        <div class="field">
+            <label for="distancing" class="label">Did you find yourself in a situation where social distancing constraints were difficult to satisfy these last seven days?</label>
+            {% set times = [('never', _('Never')),
+                                 ('rarely', _("Rarely (1-2 times)")),
+                                 ('sometimes', _("Sometimes (3-5 times)")),
+                                 ('often', _("Often (5-10 times)")),
+                                 ('always', _("Always"))] %}
+            <div class="control">
+                <div class="columns">
+                    {% for value, name in times %}
+                        <div class="column">
+                            <input class="is-checkradio is-block is-custom-checkradio-block"
+                                   id="status_distancing_{{ value }}" type="radio"
+                                   name="status" value="{{ value }}" required>
+                            <label for="status_distancing_{{ value }}">{{ name }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label for="homeworking" class="label">Does your job allows you to homework?</label>
+            {% set times = [('never', _('Never')),
+                                 ('rarely', _("Rarely (1 day a week)")),
+                                 ('sometimes', _("Sometimes (2-3 days a week)")),
+                                 ('always', _("Always")),
+                                 ('not', _("Doesn't apply (I don't have a job)"))] %}
+            <div class="control">
+                <div class="columns">
+                    {% for value, name in times %}
+                        <div class="column">
+                            <input class="is-checkradio is-block is-custom-checkradio-block"
+                                   id="status_homeworking_{{ value }}" type="radio"
+                                   name="status" value="{{ value }}" required>
+                            <label for="status_homeworking_{{ value }}">{{ name }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div>
             <p>
-            <label for="preventing">I'm doing everything I can to prevent spreading or being contaminated by COVID-19</label>
-        </p>
-        <ul>
-            <li>
-                <input type="radio" name="status" id="status_preventing_1" value="preventing"/>
-                <label for="status_preventing">Strongly disagree</label>
-            </li>
-            <li>
-                <input type="radio" name="status" id="status_preventing_2" value="preventing"/>
-                <label for="status_preventing">Disagree</label>
-            </li>
-            <li>
-                <input type="radio" name="status" id="status_preventing_3" value="preventing"/>
-                <label for="status_preventing">Neutral</label>
-            </li>
-            <li>
-                <input type="radio" name="status" id="status_preventing_4" value="preventing"/>
-                <label for="status_preventing">Agree</label>
-            </li>
-            <li>
-                <input type="radio" name="status" id="status_preventing_5" value="preventing"/>
-                <label for="status_preventing">Strongly agree</label>
-            </li>
-        </ul>
-        <p>
-            <label for="meeting">How many persons did you meet in the last 7 days (in the same room or < 3m, excluding persons you live with)? </label>
-        </p>
-        <input type="number" name="person_met" id="person_met" value=""/>
-        <p>
-        <button type="submit">Click here to finish</button>
+                <label for="household" class="label">How many persons do you live with (you included)?</label>
+                <input type="number" name="household" id="household" class="input is-primary" value=""/>
+            <p>
+        </div>
+        <div>
+            <p>
+                <label for="leave_house" class="label">How many times did you leave your home for something else than work these last seven days? </label>
+                <input type="number" name="left_house" id="left_house" class="input is-primary" value=""/>
+            </p>
+        </div>
+        <div class="field">
+            <label for="preventing" class="label">I'm doing everything I can to prevent spreading or being contaminated by COVID-19</label>
+            {% set times = [     ('strongly_disagree', _("Strongly disagree")),
+                                 ('disagree', _("Disagree")),
+                                 ('neutral', _("Neutral")),
+                                 ('agree', _("Agree")),
+                                 ('strongly_agree', _('Strongly disagree'))] %}
+            <div class="control">
+                <div class="columns">
+                    {% for value, name in times %}
+                        <div class="column">
+                            <input class="is-checkradio is-block is-custom-checkradio-block"
+                                   id="status_prevent_{{ value }}" type="radio"
+                                   name="status" value="{{ value }}" required>
+                            <label for="status_prevent_{{ value }}">{{ name }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div>
+            <p>
+                <label for="meeting" class="label">How many persons did you meet (same room or <3m) in the last 7 days, excluding persons you live with? </label>
+                <input type="number" name="person_met" id="person_met" class="input is-primary" value=""/>
+            </p>
+        </div>
+        <div class="field">
+            <div class="buttons is-centered" style="margin-top: 3em">
+                <button type="submit" class="button is-primary is-large">Click here to finish</button>
+            </div>
+        </div>
     </form>
 {% endblock %}
