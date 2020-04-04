@@ -182,8 +182,12 @@ def form():
             return render_template('form_distancing.html', password=password)
         else:
             return render_template('form.html', password=password, errors=errors, current={
-                "sex": sex, "age": age, "symptoms": symptoms,
-                "covid_likely": covid_likely, "covid_start": covid_start, "covid_end": covid_end,
+                "sex": (sex.name if sex is not None else None),
+                "age": age,
+                "symptoms": symptoms,
+                "covid_likely": (covid_likely.name if covid_likely is not None else None),
+                "covid_start": covid_start,
+                "covid_end": covid_end,
                 "municipality": municipality
             }, all_symptoms=Answers.all_symptoms)
 
