@@ -22,12 +22,12 @@
                     <div class="column">
 
                         <input class="is-checkradio is-block is-custom-checkradio-block" id="sex_male" type="radio"
-                               name="sex" value="male" required>
+                               name="sex" value="male" required {% if current.sex == "male" %}checked{% endif %}>
                         <label for="sex_male">Male</label>
                     </div>
                     <div class="column">
                         <input class="is-checkradio is-block is-custom-checkradio-block" id="sex_female" type="radio"
-                               name="sex" value="female" required>
+                               name="sex" value="female" required {% if current.sex == "female" %}checked{% endif %}>
                         <label for="sex_female">Female</label>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                     <select name="age" id="age" required>
                         <option value="">{{ _("Select your age") }}</option>
                         {% for i in range(0, 125, 5) %}
-                            <option value="{{ i }}">{{ i }} - {{ i + 4 }} years</option>
+                            <option value="{{ i }}" {% if current.age == i %}selected{% endif %}>{{ i }} - {{ i + 4 }} years</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -48,7 +48,8 @@
         </div>
         <div class="field">
             <label for="municipality" class="label">{{ _("Municipality code") }}</label>
-            <input name="municipality" class="input is-primary" id="municipality" placeholder="1000" required>
+            <input name="municipality" class="input is-primary" id="municipality" placeholder="1000" required
+                   {% if current.municipality %}value="{{ current.municipality }}"{% endif %} >
         </div>
         <div class="field">
             <label for="status" class="label">{{ _("How likely is it that you suffer(ed) from COVID-19?") }}</label>
@@ -63,7 +64,9 @@
                         <div class="column">
                             <input class="is-checkradio is-block is-custom-checkradio-block"
                                    id="status_covid_{{ value }}" type="radio"
-                                   name="status" value="{{ value }}" required>
+                                   name="status" value="{{ value }}" required
+                                   {% if current.covid_likely == value%}checked{% endif %}
+                            >
                             <label for="status_covid_{{ value }}">{{ name }}</label>
                         </div>
                     {% endfor %}
@@ -80,14 +83,20 @@
                 <div class="column">
                     <label for="timing_covid" class="label">{{ _("From") }}</label>
                     <div class="control">
-                        <input type="date" class="input is-primary" name="timing_from" id="timing_covid_from" value=""/>
+                        <input type="date" class="input is-primary" name="timing_from" id="timing_covid_from"
+                               placeholder="{{ _("dd/mm/yyyy") }}"
+                               {% if current.covid_start %} value="{{ current.covid_start }}"{% endif %}
+                        />
                     </div>
                     <p class="help">{{ _("Put the date where your first symptom appeared") }}</p>
                 </div>
                 <div class="column">
                     <label for="timing_covid" class="label">{{ _("To") }}</label>
                     <div class="control">
-                        <input type="date" class="input is-primary" name="timing_to" id="timing_covid_to" value=""/>
+                        <input type="date" class="input is-primary" name="timing_to" id="timing_covid_to"
+                               placeholder="{{ _("dd/mm/yyyy") }}"
+                               {% if current.covid_end %} value="{{ current.covid_end }}" {% endif %}
+                        />
                     </div>
                     <p class="help">{{ _("If you are still ill, please put any date in the future") }}</p>
                 </div>
@@ -101,7 +110,9 @@
                         <div class="column is-one-quarter-desktop is-one-third-tablet is-half-mobile">
                             <input class="is-checkradio is-block is-custom-checkradio-block"
                                    id="symptoms_{{ value }}" type="checkbox"
-                                   name="symptoms_{{ value }}">
+                                   name="symptoms_{{ value }}"
+                                   {% if current.symptoms and current.symptoms[value] %}checked{% endif %}
+                            >
                             <label for="symptoms_{{ value }}">{{ name }}</label>
                         </div>
                     {% endfor %}
@@ -213,7 +224,7 @@
                 }
 
                 var symptoms_checkbox_names = [
-                    {% for value, name in symptoms %}
+                    {% for value in all_symptoms %}
                         "symptoms_{{ value }}",
                     {% endfor %}
                 ];

@@ -105,7 +105,7 @@ def form():
                 "symptoms": last_answer.get_active_symptoms_dict()
             }, all_symptoms=Answers.all_symptoms)
         else:
-            return render_template('form.html', password=password, all_symptoms=Answers.all_symptoms)
+            return render_template('form.html', password=password, all_symptoms=Answers.all_symptoms, current={})
     else:  # Save in db and serve next form
 
         # "session expired"
