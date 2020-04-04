@@ -2,8 +2,12 @@
 {% block content %}
 
     <p class="is-size-4 subtitle">
-        {{ _("Fill this form to contribute.") }}
-        {{ _('<a href="{}">Everything is strictly anonymous</a>, don\'t worry!').format("#") }}
+        {% if not existing %}
+            {{ _("Fill this form to contribute.") }}
+            {{ _('<a href="{}">Everything is strictly anonymous</a>, don\'t worry!').format("#") }}
+        {% else %}
+            {{ _("You are currently updating the profile <span class='is-family-code'>{}</span>. Thanks for helping us!").format(password) }}
+        {% endif %}
     </p>
 
     <div id="error-message" class="notification is-danger {% if not errors %}is-hidden{% endif %}">

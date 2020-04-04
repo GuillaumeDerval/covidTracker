@@ -104,9 +104,13 @@ def form():
                 "covid_end": last_answer.covid_until,
                 "municipality": last_answer.municipality,
                 "symptoms": last_answer.get_active_symptoms_dict()
-            }, all_symptoms=Answers.all_symptoms)
+            }, all_symptoms=Answers.all_symptoms, existing=True)
         else:
-            return render_template('form.html', password=password, all_symptoms=Answers.all_symptoms, current={})
+            return render_template('form.html',
+                                   password=password,
+                                   all_symptoms=Answers.all_symptoms,
+                                   current={},
+                                   existing=False)
     else:  # Save in db and serve next form
 
         # "session expired"
@@ -189,7 +193,7 @@ def form():
                 "covid_start": covid_start,
                 "covid_end": covid_end,
                 "municipality": municipality
-            }, all_symptoms=Answers.all_symptoms)
+            }, all_symptoms=Answers.all_symptoms, existing=last_answer is not None)
 
 
 @multilingual.route("/social-distancing-form")
