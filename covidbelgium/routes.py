@@ -164,6 +164,8 @@ def form():
             session["form_opened"] = None
             # Update the IP checker
             main_form_ip_check.incr()
+            # This password is now valid
+            add_password_to_list(password)
 
             return render_template('form_distancing.html', password=password)
         else:

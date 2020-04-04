@@ -12,40 +12,46 @@
                     </div>
                 {% else %}
                     {% if entries %}
-                        <h2 class="subtitle">{{ _("Update your profile:") }}</h2>
-                        <div class="columns">
+                        <h2 class="subtitle">{{ _("Select your profile to update it") }}</h2>
+                        <div class="columns is-centered is-multiline">
                             {% for password, profile in entries.items() %}
-                                <div class="column">
+                                <div class="column is-half-desktop is-half-tablet">
                                     <form action="{{ url_for('multilingual.reuse_id') }}" method="post">
                                         <input type="hidden" name="password" value="{{ password }}"/>
-                                        <ul>
-                                            <li>ID: {{ password }}</li>
-                                            <li>Sex:
-                                                {% if profile.sex == "male" %}
-                                                    Male
-                                                {% else %}
-                                                    Female
-                                                {% endif %}
-                                            </li>
-                                            <li>Age: {{ profile.age }} - {{ profile.age + 4 }}</li>
-                                            <li>
-                                                {% if profile.has_covid %}
-                                                    Has Covid-19
-                                                {% elif profile.had_covid %}
-                                                    Had Covid-19
-                                                {% endif %}
-                                            </li>
-                                            <li>
-                                                <button type="submit">Update this profile</button>
-                                            </li>
-                                        </ul>
+                                        <div class="box">
+                                            <div class="is-size-4 is-family-code">{{ password }}</div>
+                                            <div class="columns">
+                                                <div class="column">
+                                                    {% if profile.sex.value == 0 %}
+                                                        {{_("Male")}}
+                                                    {% else %}
+                                                        {{_("Female")}}
+                                                    {% endif %}
+                                                </div>
+                                                <div class="column">
+                                                    {{ _("Age") }} {{ profile.age }} - {{ profile.age + 4 }}
+                                                </div>
+                                                <div class="column">
+                                                    {% if profile.covid_likely.value == 1 %}
+                                                        {{ _("Not ill") }}
+                                                    {% else %}
+                                                        {{ _("Is/was ill") }}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="button is-primary">Update this profile</button>
+                                        </div>
                                     </form>
                                 </div>
                             {% endfor %}
                         </div>
                     {% endif %}
                     <div class="buttons is-centered">
-                    <a href="{{ url_for('multilingual.new_id') }}" class="button is-dark is-large is-centered">{{ _("I want to participate!") }}</a>
+                        {% if entries %}
+                            <a href="{{ url_for('multilingual.new_id') }}" class="button is-dark is-centered">{{ _("I want to create another profile!") }}</a>
+                        {% else %}
+                            <a href="{{ url_for('multilingual.new_id') }}" class="button is-dark is-large is-centered">{{ _("I want to participate!") }}</a>
+                        {% endif %}
                     </div>
                     <div class="buttons is-centered">
                         {% if entries %}
