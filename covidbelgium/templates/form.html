@@ -23,12 +23,12 @@
 
                         <input class="is-checkradio is-block is-custom-checkradio-block" id="sex_male" type="radio"
                                name="sex" value="male" required {% if current.sex == "male" %}checked{% endif %}>
-                        <label for="sex_male">Male</label>
+                        <label for="sex_male">{{ _("Male") }}</label>
                     </div>
                     <div class="column">
                         <input class="is-checkradio is-block is-custom-checkradio-block" id="sex_female" type="radio"
                                name="sex" value="female" required {% if current.sex == "female" %}checked{% endif %}>
-                        <label for="sex_female">Female</label>
+                        <label for="sex_female">{{ _("Female") }}</label>
                     </div>
                 </div>
             </div>
