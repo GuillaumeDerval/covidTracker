@@ -55,7 +55,7 @@ class Answers(Base):
                  symptom_throat=None, symptom_diarrhea=None, symptom_vomit=None, symptom_nose=None):
         self.hash = hash
         self.covid_likely = covid_likely
-        if self.covid_likely == LikelyScale.likely or self.covid_likely == LikelyScale.certain:  # Dates if not neutral
+        if self.covid_likely != LikelyScale.extremely_unlikely:  # Dates if not neutral
             assert covid_since is not None
             self.covid_since = covid_since
             assert covid_until is not None
