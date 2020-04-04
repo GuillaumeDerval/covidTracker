@@ -92,7 +92,20 @@ def form():
 
     if request.method == "GET":  # Serve the form
         session["form_opened"] = datetime.utcnow()
-        return render_template('form.html', password=password)
+        last_answer = Answers.find_last_by_hash(hash_password(password))
+
+        if last_answer is not None:
+            return render_template('form.html', password=password, current={
+                "sex": last_answer.sex.name,
+                "age": last_answer.age,
+                "covid_likely": last_answer.covid_likely.name,
+                "covid_start": last_answer.covid_since,
+                "covid_end": last_answer.covid_until,
+                "municipality": last_answer.municipality,
+                "symptoms": last_answer.get_active_symptoms_dict()
+            }, all_symptoms=Answers.all_symptoms)
+        else:
+            return render_template('form.html', password=password, all_symptoms=Answers.all_symptoms)
     else:  # Save in db and serve next form
 
         # "session expired"
@@ -115,9 +128,7 @@ def form():
         age = check_form(lambda: int(request.values['age']), gettext("Please fill in your age"), lambda x: x % 5 == 0 and x <= 120)
         municipality = check_form(lambda: int(request.values['municipality']), gettext("Please fill in your municipality"))
 
-        symptom_list = ["vomit", "nose", "fever", "smell", "breathing", "tiredness", "caugh", "shivers",
-                        "headache", "muscle", "throat", "diarrhea"]  # order is important
-        symptoms = [request.values.get(f'symptoms_{x}') is not None for x in symptom_list]
+        symptoms = [request.values.get(f'symptoms_{x}') is not None for x in Answers.all_symptoms.keys()]
 
         covid_likely = check_form(lambda: LikelyScale[request.values['status']], gettext("Please select your status w.r.t Covid-19."))
         if covid_likely != LikelyScale.extremely_unlikely:
@@ -170,10 +181,10 @@ def form():
             return render_template('form_distancing.html', password=password)
         else:
             return render_template('form.html', password=password, errors=errors, current={
-                "sex": sex, "age": age, "symptoms": {n:v for n,v in zip(symptom_list, symptoms)},
+                "sex": sex, "age": age, "symptoms": {n:v for n,v in zip(Answers.all_symptoms.keys(), symptoms)},
                 "covid_likely": covid_likely, "covid_start": covid_start, "covid_end": covid_end,
                 "municipality": municipality
-            })
+            }, all_symptoms=Answers.all_symptoms)
 
 
 @multilingual.route("/social-distancing-form")
