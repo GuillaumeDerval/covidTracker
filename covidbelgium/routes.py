@@ -90,9 +90,10 @@ def form():
     if password is None or not main_form_ip_check.is_ok():
         return redirect(url_for('multilingual.index_error'), 302)
 
+    last_answer = Answers.find_last_by_hash(hash_password(password))
+
     if request.method == "GET":  # Serve the form
         session["form_opened"] = datetime.utcnow()
-        last_answer = Answers.find_last_by_hash(hash_password(password))
 
         if last_answer is not None:
             return render_template('form.html', password=password, current={
@@ -128,7 +129,7 @@ def form():
         age = check_form(lambda: int(request.values['age']), gettext("Please fill in your age"), lambda x: x % 5 == 0 and x <= 120)
         municipality = check_form(lambda: int(request.values['municipality']), gettext("Please fill in your municipality"))
 
-        symptoms = [request.values.get(f'symptoms_{x}') is not None for x in Answers.all_symptoms.keys()]
+        symptoms = {x: request.values.get(f'symptoms_{x}') is not None for x in Answers.all_symptoms.keys()}
 
         covid_likely = check_form(lambda: LikelyScale[request.values['status']], gettext("Please select your status w.r.t Covid-19."))
         if covid_likely != LikelyScale.extremely_unlikely:
@@ -139,11 +140,11 @@ def form():
                 errors.append(gettext('Invalid dates, you should fall ill before being cared.'))
             if covid_start is not None and (covid_start < date(2019, 12, 1) or covid_start > date.today()):
                 errors.append(gettext('Invalid start of symptoms date.'))
-            if not any(symptoms):
+            if not any(symptoms.values()):
                 errors.append(gettext('If you think you are/were ill, please select the symptoms you faced. If you did not experience any of them, it is extremely unlikely you had covid-19.'))
         else:
             covid_start = covid_end = None
-            if any(symptoms):
+            if any(symptoms.values()):
                 errors.append(gettext("If you had some symptoms, it is not extremely unlikely that you had Covid-19."))
 
         if len(errors) == 0:
@@ -162,12 +163,12 @@ def form():
             if session.get("form_opened") is None:
                 current_app.logger.info('Robot did not load the form first, or someone already submitted the form')
                 is_robot = True
-            elif datetime.utcnow() - session.get("form_opened") < timedelta(seconds=4):
+            elif last_answer is None and datetime.utcnow() - session.get("form_opened") < timedelta(seconds=4):
                 current_app.logger.info('Robot filled the form a bit too fast %s', str(datetime.utcnow() - session.get("form_opened")))
                 is_robot = True
 
             if not is_robot:
-                answer = Answers(hash_password(password), covid_likely, sex, age, municipality, covid_start, covid_end, *symptoms)
+                answer = Answers(hash_password(password), covid_likely, sex, age, municipality, covid_start, covid_end, symptoms)
                 db_session.add(answer)
                 db_session.commit()
 
@@ -181,7 +182,7 @@ def form():
             return render_template('form_distancing.html', password=password)
         else:
             return render_template('form.html', password=password, errors=errors, current={
-                "sex": sex, "age": age, "symptoms": {n:v for n,v in zip(Answers.all_symptoms.keys(), symptoms)},
+                "sex": sex, "age": age, "symptoms": symptoms,
                 "covid_likely": covid_likely, "covid_start": covid_start, "covid_end": covid_end,
                 "municipality": municipality
             }, all_symptoms=Answers.all_symptoms)
